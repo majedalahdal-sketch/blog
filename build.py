@@ -512,6 +512,13 @@ def main():
     if feed:
         (OUT / "feed.xml").write_text(feed, encoding="utf-8")
 
+    # دومين GitHub Pages الخاص
+    url = site.get("site_url", "")
+    if url:
+        host = url.split("//")[-1].strip("/")
+        if not host.endswith("github.io"):
+            (OUT / "CNAME").write_text(host + "\n")
+
     n = 3 + len(posts)
     print(f"تم البناء ✓  {n} صفحات في docs/  ({len(posts)} مقالة)")
 
