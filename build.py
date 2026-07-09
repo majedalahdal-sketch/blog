@@ -68,6 +68,8 @@ def fmt_short(iso: str) -> str:         # 2026-07-09T15:55:03 → 07/09
 
 ICON_MENU = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>'
 ICON_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>'
+ICON_MOON = '<svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>'
+ICON_SUN = '<svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="18.4" y1="18.4" x2="19.8" y2="19.8"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.2" y1="19.8" x2="5.6" y2="18.4"/><line x1="18.4" y1="5.6" x2="19.8" y2="4.2"/></svg>'
 
 PAGE = Template("""<!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -82,11 +84,24 @@ PAGE = Template("""<!DOCTYPE html>
 $og_image
 <link rel="icon" href="${rel}assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="${rel}assets/css/style.css">
+<script>
+(function () {
+  var t = localStorage.getItem('theme');
+  if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.dataset.theme = 'dark';
+  } else if (t === 'light') {
+    document.documentElement.dataset.theme = 'light';
+  }
+})();
+</script>
 </head>
-<body>
+<body class="$body_class">
 <nav class="navbar" id="navbar">
   <div class="container nav-inner">
-    <button class="menu-btn" id="menuOpen" aria-label="فتح القائمة">$icon_menu</button>
+    <div class="nav-actions">
+      <button class="menu-btn" id="menuOpen" aria-label="فتح القائمة">$icon_menu</button>
+      <button class="theme-btn" id="themeToggle" aria-label="تبديل الوضع الليلي">$icon_moon$icon_sun</button>
+    </div>
     <a href="${rel}index.html" class="nav-brand">$brand</a>
   </div>
 </nav>
@@ -148,6 +163,26 @@ $footer_links
   } else {
     document.querySelectorAll('.fade-in').forEach(function (el) { el.classList.add('visible'); });
   }
+
+  document.getElementById('themeToggle').addEventListener('click', function () {
+    var root = document.documentElement;
+    var dark = root.dataset.theme === 'dark' ||
+      (!root.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+    var next = dark ? 'light' : 'dark';
+    root.dataset.theme = next;
+    localStorage.setItem('theme', next);
+  });
+
+  var nl = document.getElementById('newsletterForm');
+  if (nl && !nl.getAttribute('action')) {
+    nl.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = nl.querySelector('input[type=email]').value;
+      location.href = 'mailto:' + nl.dataset.fallback +
+        '?subject=' + encodeURIComponent('اشتراك في النشرة البريدية') +
+        '&body=' + encodeURIComponent('أرغب بالاشتراك: ' + email);
+    });
+  }
 })();
 </script>
 $extra_js
@@ -156,7 +191,7 @@ $extra_js
 """)
 
 
-def render_page(site, *, rel, title, description, main, og_type="website", og_image="", extra_js=""):
+def render_page(site, *, rel, title, description, main, og_type="website", og_image="", extra_js="", body_class=""):
     import datetime
     menu_links = "\n".join(
         f'    <a href="{rel}{item["url"]}">{item["label"]}</a>' for item in site["nav"]
@@ -172,9 +207,29 @@ def render_page(site, *, rel, title, description, main, og_type="website", og_im
         menu_links=menu_links, footer_links=footer_links,
         footer_note=site["footer_note"],
         year=datetime.date.today().year,
-        icon_menu=ICON_MENU, icon_x=ICON_X,
-        main=main, extra_js=extra_js,
+        icon_menu=ICON_MENU, icon_x=ICON_X, icon_moon=ICON_MOON, icon_sun=ICON_SUN,
+        main=main, extra_js=extra_js, body_class=body_class,
     )
+
+
+def newsletter_section(site):
+    n = site.get("newsletter")
+    if not n:
+        return ""
+    action = n.get("action", "")
+    return f"""
+  <section class="newsletter">
+    <div class="container"><div class="inner">
+      <span class="label">{n['label']}</span>
+      <h2>{n['heading']}</h2>
+      <p>{n['text']}</p>
+      <form id="newsletterForm" action="{action}" method="post" data-fallback="{n.get('fallback_email','')}">
+        <input type="email" name="email" required placeholder="{n['placeholder']}" aria-label="{n['placeholder']}">
+        <button type="submit">{n['button']}</button>
+      </form>
+      <p class="note">{n.get('note','')}</p>
+    </div></div>
+  </section>"""
 
 
 def card_meta(p, sep='<span>·</span>'):
@@ -249,6 +304,7 @@ def build_home(site, posts):
       </div>
     </div>
   </section>
+{newsletter_section(site)}
 {pull}
 </main>"""
 
@@ -256,7 +312,7 @@ def build_home(site, posts):
         site, rel=rel,
         title=f"{site['brand']} | {site['tagline']}",
         description=site["description"],
-        main=main,
+        main=main, body_class="has-hero",
     )
 
 
@@ -436,7 +492,7 @@ def build_post(site, p):
   </header>
 
   <figure class="post-figure">
-    <img src="{rel}{p['image']}" alt="{p['title']}">
+    <div class="cover"><img src="{rel}{p['image']}" alt="{p['title']}"></div>
   </figure>
 {pull}
   <article class="post-body">

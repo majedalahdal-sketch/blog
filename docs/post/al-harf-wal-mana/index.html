@@ -11,11 +11,24 @@
 
 <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../../assets/css/style.css">
+<script>
+(function () {
+  var t = localStorage.getItem('theme');
+  if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.dataset.theme = 'dark';
+  } else if (t === 'light') {
+    document.documentElement.dataset.theme = 'light';
+  }
+})();
+</script>
 </head>
-<body>
+<body class="">
 <nav class="navbar" id="navbar">
   <div class="container nav-inner">
-    <button class="menu-btn" id="menuOpen" aria-label="فتح القائمة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+    <div class="nav-actions">
+      <button class="menu-btn" id="menuOpen" aria-label="فتح القائمة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+      <button class="theme-btn" id="themeToggle" aria-label="تبديل الوضع الليلي"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="18.4" y1="18.4" x2="19.8" y2="19.8"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.2" y1="19.8" x2="5.6" y2="18.4"/><line x1="18.4" y1="5.6" x2="19.8" y2="4.2"/></svg></button>
+    </div>
     <a href="../../index.html" class="nav-brand">مدونة ماجد</a>
   </div>
 </nav>
@@ -51,7 +64,7 @@
   </header>
 
   <figure class="post-figure">
-    <img src="../../assets/images/sanity/a198120aa31af617348453e6236af6d8b4da51bc-1264x848-jpg.jpg" alt="الحرف والمعنى: في فلسفة الكتابة">
+    <div class="cover"><img src="../../assets/images/sanity/a198120aa31af617348453e6236af6d8b4da51bc-1264x848-jpg.jpg" alt="الحرف والمعنى: في فلسفة الكتابة"></div>
   </figure>
 
   <div class="post-pull"><blockquote>الكتابة ليست ترفاً فكرياً، بل هي ضرورة وجودية. نكتب لنفهم ما نعيشه، ونعيش لنجد ما نكتبه.</blockquote></div>
@@ -120,6 +133,26 @@
     document.querySelectorAll('.fade-in').forEach(function (el) { io.observe(el); });
   } else {
     document.querySelectorAll('.fade-in').forEach(function (el) { el.classList.add('visible'); });
+  }
+
+  document.getElementById('themeToggle').addEventListener('click', function () {
+    var root = document.documentElement;
+    var dark = root.dataset.theme === 'dark' ||
+      (!root.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+    var next = dark ? 'light' : 'dark';
+    root.dataset.theme = next;
+    localStorage.setItem('theme', next);
+  });
+
+  var nl = document.getElementById('newsletterForm');
+  if (nl && !nl.getAttribute('action')) {
+    nl.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = nl.querySelector('input[type=email]').value;
+      location.href = 'mailto:' + nl.dataset.fallback +
+        '?subject=' + encodeURIComponent('اشتراك في النشرة البريدية') +
+        '&body=' + encodeURIComponent('أرغب بالاشتراك: ' + email);
+    });
   }
 })();
 </script>

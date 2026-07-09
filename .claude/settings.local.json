@@ -36,7 +36,11 @@
       "Bash(cp \"/Users/majed/Downloads/Thmanyah-Font-Family/thmanyah typeface/thmanyahserifdisplay/woff2/\"*.woff2 assets/fonts/)",
       "Bash(brew install *)",
       "Bash(/opt/homebrew/bin/node --version)",
-      "Bash(/opt/homebrew/bin/npm --version)"
+      "Bash(/opt/homebrew/bin/npm --version)",
+      "Bash(gh workflow *)",
+      "Bash(gh run *)",
+      "Bash(git commit -q -m 'نشرة بريدية، وضع ليلي، حواف ناعمة، وفلتر برتقالي داكن ٦٠٪ *)",
+      "Bash(git push *)"
     ]
   }
 }
