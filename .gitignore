@@ -1,2 +1,5 @@
 _export/
 .DS_Store
+sanity/node_modules/
+sanity/dist/
+sanity/.sanity/

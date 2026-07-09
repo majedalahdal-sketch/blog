@@ -34,7 +34,9 @@
       "Bash(cp \"/Users/majed/Downloads/Thmanyah-Font-Family/thmanyah typeface/thmanyahsans/woff2/\"*.woff2 assets/fonts/)",
       "Bash(cp \"/Users/majed/Downloads/Thmanyah-Font-Family/thmanyah typeface/thmanyahseriftext/woff2/\"*.woff2 assets/fonts/)",
       "Bash(cp \"/Users/majed/Downloads/Thmanyah-Font-Family/thmanyah typeface/thmanyahserifdisplay/woff2/\"*.woff2 assets/fonts/)",
-      "Bash(brew install *)"
+      "Bash(brew install *)",
+      "Bash(/opt/homebrew/bin/node --version)",
+      "Bash(/opt/homebrew/bin/npm --version)"
     ]
   }
 }

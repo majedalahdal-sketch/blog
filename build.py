@@ -40,7 +40,17 @@ def parse_post(path: Path) -> dict:
 
 def load():
     site = json.loads((CONTENT / "site.json").read_text(encoding="utf-8"))
-    posts = [parse_post(p) for p in sorted((CONTENT / "posts").glob("*.md"))]
+    posts = None
+    try:
+        import sanity_source
+        posts = sanity_source.fetch_posts()   # None إذا لم يوجد content/sanity.json
+        if posts is not None:
+            print(f"المصدر: Sanity ({len(posts)} مقالة)")
+    except Exception as e:
+        print(f"تعذّر الجلب من Sanity ({e}) — سأستخدم الملفات المحلية")
+        posts = None
+    if posts is None:
+        posts = [parse_post(p) for p in sorted((CONTENT / "posts").glob("*.md"))]
     posts.sort(key=lambda p: p["date"], reverse=True)
     return site, posts
 

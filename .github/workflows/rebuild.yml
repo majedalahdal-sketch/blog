@@ -1,0 +1,36 @@
+name: إعادة بناء الموقع من سانيتي
+
+on:
+  workflow_dispatch:        # زر تشغيل يدوي من GitHub
+  schedule:
+    - cron: '0 */6 * * *'   # كل ٦ ساعات
+  repository_dispatch:
+    types: [sanity-publish] # webhook من سانيتي (اختياري)
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: بناء الموقع
+        run: python build.py
+
+      - name: نشر التغييرات إن وُجدت
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A docs assets/images/sanity
+          if ! git diff --cached --quiet; then
+            git commit -m "إعادة بناء تلقائية من سانيتي"
+            git push
+          else
+            echo "لا تغييرات"
+          fi

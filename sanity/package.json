@@ -1,0 +1,16 @@
+{
+  "name": "majed-blog-studio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "استوديو إدارة محتوى مدونة ماجد",
+  "scripts": {
+    "dev": "sanity dev",
+    "deploy": "sanity deploy"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "sanity": "^4.10.0",
+    "styled-components": "^6.1.18"
+  }
+}
