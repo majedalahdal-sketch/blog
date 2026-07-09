@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"/Users/majed/المدونة\" 2>&1; ls \"/Users/majed\" | head -30)",
+      "mcp__claude-in-chrome__tabs_context_mcp",
+      "mcp__claude-in-chrome__navigate",
+      "mcp__claude-in-chrome__computer",
+      "mcp__claude-in-chrome__find",
+      "mcp__claude-in-chrome__javascript_tool",
+      "mcp__claude-in-chrome__form_input",
+      "mcp__claude-in-chrome__tabs_create_mcp",
+      "Bash(npm --version)",
+      "Bash(gh auth *)",
+      "Bash(ls /opt/homebrew/bin/node /usr/local/bin/node 2>/dev/null; which python3; python3 --version 2>&1)",
+      "mcp__claude-in-chrome__read_network_requests",
+      "Bash(curl -s 'https://majedalahdal.base44.app/api/apps/6a4fc36b78295c101b265cc0/entities/BlogPost?sort=-created_date&limit=100' -o \"/Users/majed/المدونة/_export/posts.json\")",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -sf -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0 Safari/537.36\" \"https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap\" -o _export/fonts.css)",
+      "Bash(curl -sf \"https://fonts.gstatic.com/s/ibmplexsansarabic/v15/Qw3NZRtWPQCuHme67tEYUIx3Kh0PHR9N6YOG-eCUXMRrKATt.woff2\" -o \"assets/fonts/ibm-plex-arabic-700-latin.woff2\")",
+      "Bash(python3 -)",
+      "Bash(python3 build.py)",
+      "Bash(cd \"/Users/majed/المدونة\" && sed -i '' -E 's/^reading_time: \\([0-9]+\\)\\\\.0$/reading_time: \\\\1/' content/posts/*.md && grep -h reading_time content/posts/*.md)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit -q -m 'مدونة ماجد — موقع ثابت مستقل مولّد ببايثون *)",
+      "Bash(git count-objects *)"
+    ]
+  }
+}
