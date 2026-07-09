@@ -24,7 +24,17 @@
       "Bash(git add *)",
       "Bash(git commit -q -m 'مدونة ماجد — موقع ثابت مستقل مولّد ببايثون *)",
       "Bash(git count-objects *)",
-      "Bash(git commit -q -m 'ربط الدومين majedalahdal.com وتوليد خلاصة RSS *)"
+      "Bash(git commit -q -m 'ربط الدومين majedalahdal.com وتوليد خلاصة RSS *)",
+      "Bash(gh api *)",
+      "Bash(curl -sI \"https://majedalahdal-sketch.github.io/blog/\")",
+      "Bash(curl -s \"https://majedalahdal-sketch.github.io/blog/\" -L -o /dev/null -w \"final: %{url_effective} → %{http_code}\\\\n\")",
+      "Bash(dig +short majedalahdal.com A)",
+      "Bash(brew --version)",
+      "Bash(rm assets/fonts/ibm-plex-arabic-*.woff2)",
+      "Bash(cp \"/Users/majed/Downloads/Thmanyah-Font-Family/thmanyah typeface/thmanyahsans/woff2/\"*.woff2 assets/fonts/)",
+      "Bash(cp \"/Users/majed/Downloads/Thmanyah-Font-Family/thmanyah typeface/thmanyahseriftext/woff2/\"*.woff2 assets/fonts/)",
+      "Bash(cp \"/Users/majed/Downloads/Thmanyah-Font-Family/thmanyah typeface/thmanyahserifdisplay/woff2/\"*.woff2 assets/fonts/)",
+      "Bash(brew install *)"
     ]
   }
 }

@@ -3,24 +3,32 @@
    الحبر #1A1A1A · الورق #FDFCF8 · الرمادي #94A3B8 · البرتقالي #C2410C
 ———————————————————————————————— */
 
-/* الخط: IBM Plex Sans Arabic (مستضاف محلياً) */
-@font-face { font-family: 'IBM Plex Sans Arabic'; font-style: normal; font-weight: 300; font-display: swap; src: url('../fonts/ibm-plex-arabic-300-arabic.woff2') format('woff2'); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC; }
-@font-face { font-family: 'IBM Plex Sans Arabic'; font-style: normal; font-weight: 300; font-display: swap; src: url('../fonts/ibm-plex-arabic-300-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'IBM Plex Sans Arabic'; font-style: normal; font-weight: 400; font-display: swap; src: url('../fonts/ibm-plex-arabic-400-arabic.woff2') format('woff2'); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC; }
-@font-face { font-family: 'IBM Plex Sans Arabic'; font-style: normal; font-weight: 400; font-display: swap; src: url('../fonts/ibm-plex-arabic-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'IBM Plex Sans Arabic'; font-style: normal; font-weight: 500; font-display: swap; src: url('../fonts/ibm-plex-arabic-500-arabic.woff2') format('woff2'); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC; }
-@font-face { font-family: 'IBM Plex Sans Arabic'; font-style: normal; font-weight: 500; font-display: swap; src: url('../fonts/ibm-plex-arabic-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'IBM Plex Sans Arabic'; font-style: normal; font-weight: 600; font-display: swap; src: url('../fonts/ibm-plex-arabic-600-arabic.woff2') format('woff2'); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC; }
-@font-face { font-family: 'IBM Plex Sans Arabic'; font-style: normal; font-weight: 600; font-display: swap; src: url('../fonts/ibm-plex-arabic-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'IBM Plex Sans Arabic'; font-style: normal; font-weight: 700; font-display: swap; src: url('../fonts/ibm-plex-arabic-700-arabic.woff2') format('woff2'); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC; }
-@font-face { font-family: 'IBM Plex Sans Arabic'; font-style: normal; font-weight: 700; font-display: swap; src: url('../fonts/ibm-plex-arabic-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+/* خط ثمانية (مستضاف محلياً) — العناوين: Serif Display · النص: Serif Text · الواجهة: Sans */
+@font-face { font-family: 'Thmanyah Serif Display'; font-style: normal; font-weight: 300; font-display: swap; src: url('../fonts/thmanyahserifdisplay-Light.woff2') format('woff2'); }
+@font-face { font-family: 'Thmanyah Serif Display'; font-style: normal; font-weight: 400; font-display: swap; src: url('../fonts/thmanyahserifdisplay-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Thmanyah Serif Display'; font-style: normal; font-weight: 500; font-display: swap; src: url('../fonts/thmanyahserifdisplay-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Thmanyah Serif Display'; font-style: normal; font-weight: 700; font-display: swap; src: url('../fonts/thmanyahserifdisplay-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Thmanyah Serif Display'; font-style: normal; font-weight: 900; font-display: swap; src: url('../fonts/thmanyahserifdisplay-Black.woff2') format('woff2'); }
+@font-face { font-family: 'Thmanyah Serif Text'; font-style: normal; font-weight: 300; font-display: swap; src: url('../fonts/thmanyahseriftext-Light.woff2') format('woff2'); }
+@font-face { font-family: 'Thmanyah Serif Text'; font-style: normal; font-weight: 400; font-display: swap; src: url('../fonts/thmanyahseriftext-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Thmanyah Serif Text'; font-style: normal; font-weight: 500; font-display: swap; src: url('../fonts/thmanyahseriftext-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Thmanyah Serif Text'; font-style: normal; font-weight: 700; font-display: swap; src: url('../fonts/thmanyahseriftext-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Thmanyah Serif Text'; font-style: normal; font-weight: 900; font-display: swap; src: url('../fonts/thmanyahseriftext-Black.woff2') format('woff2'); }
+@font-face { font-family: 'Thmanyah Sans'; font-style: normal; font-weight: 300; font-display: swap; src: url('../fonts/thmanyahsans-Light.woff2') format('woff2'); }
+@font-face { font-family: 'Thmanyah Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url('../fonts/thmanyahsans-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Thmanyah Sans'; font-style: normal; font-weight: 500; font-display: swap; src: url('../fonts/thmanyahsans-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Thmanyah Sans'; font-style: normal; font-weight: 700; font-display: swap; src: url('../fonts/thmanyahsans-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Thmanyah Sans'; font-style: normal; font-weight: 900; font-display: swap; src: url('../fonts/thmanyahsans-Black.woff2') format('woff2'); }
 
 :root {
   --paper: #FDFCF8;
   --ink: #1A1A1A;
   --gray: #94A3B8;
   --accent: #C2410C;
-  --font: 'IBM Plex Sans Arabic', sans-serif;
+  --font-heading: 'Thmanyah Serif Display', serif;
+  --font-body: 'Thmanyah Serif Text', serif;
+  --font-ui: 'Thmanyah Sans', sans-serif;
+  --font: var(--font-body);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -35,7 +43,7 @@ body {
   background-color: var(--paper);
 }
 
-h1, h2, h3, h4, h5, h6 { font-family: var(--font); line-height: 1.2; }
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); line-height: 1.2; }
 
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
@@ -61,7 +69,7 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 }
 .navbar.scrolled { background: rgba(253, 252, 248, .95); backdrop-filter: blur(4px); box-shadow: 0 1px 2px rgba(0,0,0,.05); }
 .navbar .nav-inner { height: 5rem; display: flex; align-items: center; justify-content: space-between; }
-.nav-brand { font-size: 1.125rem; font-weight: 600; letter-spacing: .025em; }
+.nav-brand { font-family: var(--font-ui); font-size: 1.125rem; font-weight: 600; letter-spacing: .025em; }
 .menu-btn { width: 2.75rem; height: 2.75rem; display: flex; align-items: center; justify-content: center; transition: color .3s; }
 .menu-btn:hover { color: var(--accent); }
 .menu-btn svg { width: 1.5rem; height: 1.5rem; }
@@ -76,13 +84,14 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 .menu-overlay.open { opacity: 1; visibility: visible; }
 .menu-head { height: 5rem; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; }
 @media (min-width: 768px) { .menu-head { padding: 0 3rem; } }
-.menu-head .brand { color: var(--paper); font-size: 1.125rem; font-weight: 600; }
+.menu-head .brand { font-family: var(--font-ui); color: var(--paper); font-size: 1.125rem; font-weight: 600; }
 .menu-close { width: 2.75rem; height: 2.75rem; display: flex; align-items: center; justify-content: center; color: var(--paper); transition: opacity .3s; }
 .menu-close:hover { opacity: .7; }
 .menu-close svg { width: 1.75rem; height: 1.75rem; }
 .menu-links { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 2rem; }
 @media (min-width: 768px) { .menu-links { padding: 0 5rem; } }
 .menu-links a {
+  font-family: var(--font-heading);
   display: block; color: var(--paper); font-weight: 700;
   font-size: 2.25rem; padding: 1rem 0;
   border-bottom: 1px solid rgba(253, 252, 248, .2);
@@ -98,7 +107,7 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 @media (min-width: 1024px) { .menu-links a { font-size: 4.5rem; } }
 .menu-foot { padding: 0 2rem 2.5rem; }
 @media (min-width: 768px) { .menu-foot { padding: 0 5rem 2.5rem; } }
-.menu-foot p { color: rgba(253, 252, 248, .6); font-size: .875rem; }
+.menu-foot p { font-family: var(--font-ui); color: rgba(253, 252, 248, .6); font-size: .875rem; }
 
 /* ———— الواجهة الرئيسية ———— */
 .hero { position: relative; min-height: 100vh; display: flex; align-items: flex-end; overflow: hidden; }
@@ -115,12 +124,12 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 .hero-content { position: relative; z-index: 10; width: 100%; padding-bottom: 4rem; padding-top: 8rem; }
 @media (min-width: 768px) { .hero-content { padding-bottom: 6rem; } }
 .hero-content .inner { max-width: 42rem; }
-.hero .meta { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; margin-bottom: 1.5rem; font-size: .75rem; color: var(--gray); }
-.chip { padding: .25rem .75rem; border: 1px solid var(--accent); color: var(--accent); }
+.hero .meta { font-family: var(--font-ui); display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; margin-bottom: 1.5rem; font-size: .75rem; color: var(--gray); }
+.chip { font-family: var(--font-ui); padding: .25rem .75rem; border: 1px solid var(--accent); color: var(--accent); }
 .hero h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 700; color: var(--ink); margin-bottom: 1.5rem; line-height: 1.2; }
 .hero .excerpt { font-size: 1.125rem; color: rgba(26,26,26,.7); line-height: 1.8; margin-bottom: 2rem; max-width: 36rem; }
 @media (min-width: 768px) { .hero .excerpt { font-size: 1.25rem; } }
-.btn-read {
+.btn-read { font-family: var(--font-ui);
   display: inline-flex; align-items: center; min-height: 44px;
   font-size: 1rem; font-weight: 500; color: var(--paper);
   background: var(--ink); padding: 1rem 2rem;
@@ -134,30 +143,22 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 @media (min-width: 768px) { .articles { padding: 7rem 0; } }
 .section-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; }
 @media (min-width: 768px) { .section-head { margin-bottom: 4rem; } }
-.section-head h2 { font-size: .875rem; font-weight: 600; color: var(--gray); letter-spacing: .05em; }
+.section-head h2 { font-family: var(--font-ui); font-size: .875rem; font-weight: 600; color: var(--gray); letter-spacing: .05em; }
 .section-head .rule { flex: 1; height: .5px; background: rgba(148,163,184,.3); }
-.post-grid { display: grid; grid-template-columns: 1fr; column-gap: 3rem; row-gap: 4rem; }
-@media (min-width: 768px) { .post-grid { grid-template-columns: 1fr 1fr; column-gap: 4rem; row-gap: 5rem; } }
+.post-grid { display: grid; grid-template-columns: 1fr; column-gap: 4rem; row-gap: 3rem; }
+@media (min-width: 768px) { .post-grid { grid-template-columns: 1fr 1fr; column-gap: 5rem; row-gap: 4rem; } }
 
-/* بطاقة المقالة */
-.post-card { display: block; }
-.post-card .img-wrap { overflow: hidden; margin-bottom: 1.25rem; height: 9rem; }
-@media (min-width: 768px) { .post-card .img-wrap { height: 10rem; } }
-.post-card .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s; }
-.post-card:hover .img-wrap img { transform: scale(1.05); }
-.post-card .meta { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; margin-bottom: .5rem; font-size: .75rem; color: var(--gray); }
-.post-card h3 { font-size: 1.25rem; font-weight: 700; color: var(--ink); margin-bottom: .75rem; line-height: 1.375; transition: color .3s; }
-@media (min-width: 768px) { .post-card h3 { font-size: 1.5rem; } }
+/* بطاقة المقالة — صف أفقي هادئ: الصورة يميناً والعنوان يسارها */
+.post-card { display: flex; align-items: flex-start; gap: 1.5rem; }
+.post-card .thumb { width: 6.5rem; height: 6.5rem; flex-shrink: 0; overflow: hidden; }
+@media (min-width: 768px) { .post-card .thumb { width: 7.5rem; height: 7.5rem; } }
+.post-card .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s; }
+.post-card:hover .thumb img { transform: scale(1.05); }
+.post-card .card-body { padding-top: .25rem; min-width: 0; }
+.post-card h3 { font-size: 1.25rem; font-weight: 700; color: var(--ink); margin-bottom: .75rem; line-height: 1.4; transition: color .3s; }
+@media (min-width: 768px) { .post-card h3 { font-size: 1.375rem; } }
 .post-card:hover h3 { color: var(--accent); }
-.post-card .excerpt {
-  font-size: .875rem; color: rgba(26,26,26,.7); line-height: 1.8;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-}
-.post-card .read {
-  display: inline-block; margin-top: .75rem; font-size: .875rem; font-weight: 500;
-  color: var(--ink); transition: color .3s, transform .3s;
-}
-.post-card:hover .read { color: var(--accent); transform: translateX(-4px); }
+.post-card .meta { font-family: var(--font-ui); display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; font-size: .75rem; color: var(--gray); }
 
 /* ———— قسم الاقتباس ———— */
 .pull-quote-section { position: relative; padding: 5rem 0; background: var(--ink); overflow: hidden; }
@@ -179,23 +180,23 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 @media (min-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } }
 .footer h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
 .footer .desc { color: var(--gray); font-size: 1rem; line-height: 1.8; }
-.footer h4 { font-size: .875rem; font-weight: 600; color: var(--gray); letter-spacing: .05em; margin-bottom: 1rem; }
+.footer h4 { font-family: var(--font-ui); font-size: .875rem; font-weight: 600; color: var(--gray); letter-spacing: .05em; margin-bottom: 1rem; }
 .footer nav { display: flex; flex-direction: column; gap: .75rem; }
-.footer nav a { color: rgba(253,252,248,.8); transition: color .3s; }
+.footer nav a { font-family: var(--font-ui); color: rgba(253,252,248,.8); transition: color .3s; }
 .footer nav a:hover { color: var(--accent); }
 .footer .mistarah { margin: 3rem 0; opacity: .2; }
-.footer-bottom { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 1rem; font-size: .875rem; color: var(--gray); }
+.footer-bottom { font-family: var(--font-ui); display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 1rem; font-size: .875rem; color: var(--gray); }
 @media (min-width: 768px) { .footer-bottom { flex-direction: row; } }
 
 /* ———— الأرشيف ———— */
 .page { padding-top: 7rem; padding-bottom: 4rem; }
 @media (min-width: 768px) { .page { padding-top: 9rem; padding-bottom: 6rem; } }
 .archive h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 700; color: var(--ink); margin-bottom: 1rem; }
-.archive .sub { font-size: 1.125rem; color: var(--gray); margin-bottom: 2.5rem; }
+.archive .sub { font-family: var(--font-ui); font-size: 1.125rem; color: var(--gray); margin-bottom: 2.5rem; }
 .filter-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
 .filter-row.senses { align-items: center; margin-bottom: 3.5rem; }
-.filter-row .senses-label { font-size: .75rem; color: var(--gray); margin-left: .5rem; }
-.filter-btn {
+.filter-row .senses-label { font-family: var(--font-ui); font-size: .75rem; color: var(--gray); margin-left: .5rem; }
+.filter-btn { font-family: var(--font-ui);
   font-size: .75rem; padding: .375rem .75rem; min-height: 44px;
   border: 1px solid rgba(148,163,184,.3); color: var(--gray);
   transition: color .3s, border-color .3s, background-color .3s;
@@ -219,13 +220,13 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 }
 @media (min-width: 768px) { .archive-row { gap: 2rem; } }
 .archive-row:hover { border-color: rgba(194,65,12,.3); }
-.archive-row .date { font-size: .75rem; color: var(--gray); flex-shrink: 0; width: 5rem; }
+.archive-row .date { font-family: var(--font-ui); font-size: .75rem; color: var(--gray); flex-shrink: 0; width: 5rem; }
 @media (min-width: 768px) { .archive-row .date { width: 6rem; } }
-.archive-row .cat { font-size: .75rem; color: var(--gray); flex-shrink: 0; }
+.archive-row .cat { font-family: var(--font-ui); font-size: .75rem; color: var(--gray); flex-shrink: 0; }
 .archive-row h3 { font-size: 1.25rem; font-weight: 500; color: var(--ink); flex: 1; transition: color .3s; }
 @media (min-width: 768px) { .archive-row h3 { font-size: 1.5rem; } }
 .archive-row:hover h3 { color: var(--accent); }
-.archive-row .rt { font-size: .75rem; color: var(--gray); flex-shrink: 0; display: none; }
+.archive-row .rt { font-family: var(--font-ui); font-size: .75rem; color: var(--gray); flex-shrink: 0; display: none; }
 @media (min-width: 768px) { .archive-row .rt { display: block; } }
 .archive-empty { font-size: 1rem; color: var(--gray); text-align: center; padding: 5rem 0; }
 
@@ -247,16 +248,16 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 .about-image .fade { position: absolute; bottom: 0; right: 0; left: 0; height: 33%; background: linear-gradient(to top, var(--paper), transparent); }
 .about-content { order: 1; }
 @media (min-width: 1024px) { .about-content { order: 2; padding-top: 3rem; } }
-.about-content .label { display: block; font-size: .875rem; font-weight: 600; color: var(--gray); letter-spacing: .05em; margin-bottom: 1rem; }
+.about-content .label { font-family: var(--font-ui); display: block; font-size: .875rem; font-weight: 600; color: var(--gray); letter-spacing: .05em; margin-bottom: 1rem; }
 .about-content h1 { font-size: clamp(2rem, 5vw, 4rem); font-weight: 700; color: var(--ink); margin-bottom: 2rem; line-height: 1.2; }
 .about-content .mistarah { margin: 2rem 0; }
 .about-text p { font-size: 1.125rem; color: rgba(26,26,26,.8); line-height: 1.8; }
 .about-text p + p { margin-top: 1.5rem; }
 .stats { display: flex; gap: 2rem; }
 @media (min-width: 768px) { .stats { gap: 3rem; } }
-.stats .value { display: block; font-size: 1.875rem; font-weight: 700; color: var(--ink); }
+.stats .value { font-family: var(--font-ui); display: block; font-size: 1.875rem; font-weight: 700; color: var(--ink); }
 @media (min-width: 768px) { .stats .value { font-size: 2.25rem; } }
-.stats .label { font-size: .75rem; color: var(--gray); }
+.stats .label { font-family: var(--font-ui); font-size: .75rem; color: var(--gray); }
 .about-quote {
   font-size: 1.25rem; color: rgba(26,26,26,.6); font-style: italic; line-height: 1.8;
   border-right: 3px solid var(--accent); padding-right: 1.5rem;
@@ -269,12 +270,12 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 @media (min-width: 768px) { .post-header { padding-top: 9rem; padding-bottom: 4rem; } }
 .post-header .inner, .post-figure, .post-pull { max-width: 56rem; margin: 0 auto; padding: 0 1.5rem; }
 @media (min-width: 768px) { .post-header .inner, .post-figure, .post-pull { padding: 0 3rem; } }
-.back-link {
+.back-link { font-family: var(--font-ui);
   display: inline-flex; align-items: center; gap: .5rem; min-height: 44px;
   font-size: .875rem; color: var(--gray); margin-bottom: 2rem; transition: color .3s;
 }
 .back-link:hover { color: var(--accent); }
-.post-header .meta { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-bottom: 1.5rem; font-size: .75rem; color: var(--gray); }
+.post-header .meta { font-family: var(--font-ui); display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-bottom: 1.5rem; font-size: .75rem; color: var(--gray); }
 .post-header h1 { font-size: clamp(2rem, 5vw, 4rem); font-weight: 700; color: var(--ink); line-height: 1.2; margin-bottom: 2rem; }
 .post-figure { max-width: 64rem; margin-bottom: 3rem; }
 .post-figure img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; }

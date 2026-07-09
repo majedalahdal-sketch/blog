@@ -168,10 +168,9 @@ def render_page(site, *, rel, title, description, main, og_type="website", og_im
 
 
 def card_meta(p, sep='<span>·</span>'):
-    parts = [f'<span>{p["category"]}</span>']
+    parts = [f'<span>{fmt_date(p["date"])}</span>', f'<span>{p["category"]}</span>']
     if p.get("subcategory"):
         parts.append(f'<span>{p["subcategory"]}</span>')
-    parts.append(f'<span>{fmt_date(p["date"])}</span>')
     if p.get("reading_time"):
         parts.append(f'<span>{p["reading_time"]} دقائق</span>')
     return f"\n          {sep}\n          ".join(parts)
@@ -186,13 +185,13 @@ def build_home(site, posts):
 
     cards = "\n".join(f"""
       <a href="post/{p['slug']}/index.html" class="post-card fade-in">
-        <div class="img-wrap"><img src="{p['image']}" alt="{p['title']}" loading="lazy"></div>
-        <div class="meta">
-          {card_meta(p)}
+        <div class="thumb"><img src="{p['image']}" alt="{p['title']}" loading="lazy"></div>
+        <div class="card-body">
+          <h3>{p['title']}</h3>
+          <div class="meta">
+            {card_meta(p)}
+          </div>
         </div>
-        <h3>{p['title']}</h3>
-        <p class="excerpt">{p['excerpt']}</p>
-        <span class="read">اقرأ المقالة ←</span>
       </a>""" for p in rest)
 
     pull = ""
