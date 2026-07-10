@@ -530,12 +530,6 @@ def build_about(site):
     rel = "../"
     a = site["about"]
     paragraphs = "\n".join(f"        <p>{p}</p>" for p in a["paragraphs"])
-    stats = "\n".join(f"""
-        <div>
-          <span class="value">{s['value']}</span>
-          <span class="label">{s['label']}</span>
-        </div>""" for s in a["stats"])
-
     main = f"""
 <main class="page">
   <div class="container">
@@ -550,9 +544,6 @@ def build_about(site):
         <hr class="mistarah">
         <div class="about-text">
 {paragraphs}
-        </div>
-        <hr class="mistarah">
-        <div class="stats">{stats}
         </div>
         <hr class="mistarah">
         <blockquote class="about-quote">{a['quote']}</blockquote>
@@ -656,6 +647,13 @@ def build_feed(site, posts):
 
 # ————— التنفيذ —————
 
+ARABIC_DIGITS = str.maketrans("٠١٢٣٤٥٦٧٨٩", "0123456789")
+
+def latinize(html: str) -> str:
+    """كل الأرقام في الموقع لاتينية."""
+    return html.translate(ARABIC_DIGITS)
+
+
 def main():
     site, posts = load()
     _ALL_POSTS.clear()
@@ -667,22 +665,22 @@ def main():
     shutil.copytree(ROOT / "assets", OUT / "assets")
     (OUT / ".nojekyll").write_text("")
 
-    (OUT / "index.html").write_text(build_home(site, posts), encoding="utf-8")
+    (OUT / "index.html").write_text(latinize(build_home(site, posts)), encoding="utf-8")
 
     (OUT / "archive").mkdir()
-    (OUT / "archive" / "index.html").write_text(build_archive(site, posts), encoding="utf-8")
+    (OUT / "archive" / "index.html").write_text(latinize(build_archive(site, posts)), encoding="utf-8")
 
     (OUT / "about").mkdir()
-    (OUT / "about" / "index.html").write_text(build_about(site), encoding="utf-8")
+    (OUT / "about" / "index.html").write_text(latinize(build_about(site)), encoding="utf-8")
 
     for p in posts:
         d = OUT / "post" / p["slug"]
         d.mkdir(parents=True)
-        (d / "index.html").write_text(build_post(site, p), encoding="utf-8")
+        (d / "index.html").write_text(latinize(build_post(site, p)), encoding="utf-8")
 
     feed = build_feed(site, posts)
     if feed:
-        (OUT / "feed.xml").write_text(feed, encoding="utf-8")
+        (OUT / "feed.xml").write_text(latinize(feed), encoding="utf-8")
 
     # دومين GitHub Pages الخاص
     url = site.get("site_url", "")
