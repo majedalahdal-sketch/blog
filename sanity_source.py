@@ -47,12 +47,27 @@ def _render_marks(span, mark_defs):
     return text
 
 
+def _escape(s: str) -> str:
+    return (s or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
+
+
 def portable_text_to_html(blocks) -> str:
     html, list_open = [], False
     for b in blocks or []:
         if b.get("_type") == "image":
             ref = (b.get("asset") or {}).get("_ref", "")
-            html.append(f'<img src="{_asset_ref_to_url(ref)}" alt="">')
+            src = _localize_body_image(ref)
+            if not src:
+                continue
+            alt = _escape(b.get("alt") or b.get("caption") or "")
+            caption = b.get("caption")
+            if caption:
+                html.append(
+                    f'<figure><img src="{src}" alt="{alt}" loading="lazy">'
+                    f"<figcaption>{_escape(caption)}</figcaption></figure>"
+                )
+            else:
+                html.append(f'<img src="{src}" alt="{alt}" loading="lazy">')
             continue
         if b.get("_type") != "block":
             continue
@@ -96,6 +111,15 @@ def _localize_image(url: str, asset_id: str, ext: str) -> str:
     if not dest.exists():
         dest.write_bytes(_http_get(url + "?w=1600&fit=max&auto=format"))
     return f"assets/images/sanity/{name}"
+
+
+def _localize_body_image(ref: str) -> str:
+    """صورة داخل نص التدوينة: تنزيل محلي وإرجاع المسار من جذر الموقع."""
+    url = _asset_ref_to_url(ref)
+    if not url:
+        return ""
+    parts = ref.split("-")          # image-<id>-<dims>-<ext>
+    return _localize_image(url, f"{parts[1]}-{parts[2]}", parts[3])
 
 
 # ————— الواجهة الرئيسية للمولّد —————

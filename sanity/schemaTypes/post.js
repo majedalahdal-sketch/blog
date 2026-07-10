@@ -91,7 +91,24 @@ export default defineType({
             {title: 'اقتباس', value: 'blockquote'},
           ],
         },
-        {type: 'image'},
+        {
+          type: 'image',
+          options: {hotspot: true},
+          fields: [
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'التعليق (اختياري)',
+              description: 'يظهر بخط صغير تحت الصورة',
+            },
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'الوصف البديل (اختياري)',
+              description: 'لمحركات البحث وقارئات الشاشة',
+            },
+          ],
+        },
       ],
     }),
   ],

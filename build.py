@@ -565,6 +565,7 @@ def build_about(site):
 
 def build_post(site, p):
     rel = "../../"
+    body = p["body"].replace('src="assets/', f'src="{rel}assets/')
     pull = ""
     if p.get("pull_quote"):
         pull = f"""
@@ -593,7 +594,7 @@ def build_post(site, p):
 {pull}
   <article class="post-body">
     <div class="prose-arabic">
-{p['body']}
+{body}
     </div>
   </article>
 

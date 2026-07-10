@@ -450,3 +450,11 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 }
 .book-card:hover .book-link { color: var(--accent); transform: translateX(-4px); }
 @media (max-width: 480px) { .book-card { flex-direction: column; } .book-cover { width: 10rem; } }
+
+/* كابشن صور التدوينات */
+.prose-arabic figure { margin: 2.5rem 0; }
+.prose-arabic figure img { margin: 0; }
+.prose-arabic figcaption {
+  font-family: var(--font-ui); font-size: .8rem; color: var(--gray);
+  text-align: center; padding-top: .75rem; line-height: 1.7;
+}
