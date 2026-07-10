@@ -8,5 +8,6 @@ export default defineCliConfig({
   studioHost: 'majed-blog',
   deployment: {
     appId: 'etuebohv6djbg5k3ltr7k6tg',
+    autoUpdates: true,
   },
 })
