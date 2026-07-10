@@ -58,7 +58,8 @@
       "Bash(curl -sL \"https://docs.google.com/forms/d/1oCGffXZQwlmSRSdSR-bB6vipy7pncpbIyFgk0JxIv5w/viewform\")",
       "Bash(curl -sL -o /dev/null -w \"%{http_code}\\\\n\" \"https://docs.google.com/forms/d/1oCGffXZQwlmSRSdSR-bB6vipy7pncpbIyFgk0JxIv5w/viewform\")",
       "Bash(curl -sL \"https://docs.google.com/forms/d/1oCGffXZQwlmSRSdSR-bB6vipy7pncpbIyFgk0JxIv5w/viewform\" -o /tmp/../private/tmp/claude-502/-Users-majed--------/5af5dd35-e7f0-49ee-aa1a-730a5cebadca/scratchpad/form.html)",
-      "Bash(curl -sL \"https://docs.google.com/forms/d/1oCGffXZQwlmSRSdSR-bB6vipy7pncpbIyFgk0JxIv5w/viewform\" -o \"/private/tmp/claude-502/-Users-majed--------/5af5dd35-e7f0-49ee-aa1a-730a5cebadca/scratchpad/form.html\")"
+      "Bash(curl -sL \"https://docs.google.com/forms/d/1oCGffXZQwlmSRSdSR-bB6vipy7pncpbIyFgk0JxIv5w/viewform\" -o \"/private/tmp/claude-502/-Users-majed--------/5af5dd35-e7f0-49ee-aa1a-730a5cebadca/scratchpad/form.html\")",
+      "Bash(git commit -q -m 'ربط نموذج النشرة بجوجل شيت عبر Google Form *)"
     ]
   }
 }

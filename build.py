@@ -179,7 +179,20 @@ $footer_links
   });
 
   var nl = document.getElementById('newsletterForm');
-  if (nl && !nl.getAttribute('action')) {
+  if (nl && nl.dataset.gformAction) {
+    // الإرسال إلى Google Form → يصل إلى جوجل شيت
+    nl.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = nl.querySelector('input[type=email]').value.trim();
+      if (!email) return;
+      var fd = new FormData();
+      fd.append(nl.dataset.gformField, email);
+      fetch(nl.dataset.gformAction, { method: 'POST', mode: 'no-cors', body: fd })
+        .finally(function () {
+          nl.outerHTML = '<p style="font-weight:500">' + nl.dataset.success + '</p>';
+        });
+    });
+  } else if (nl && !nl.getAttribute('action')) {
     nl.addEventListener('submit', function (e) {
       e.preventDefault();
       var email = nl.querySelector('input[type=email]').value;

@@ -39,7 +39,10 @@
     "button": "اشترك",
     "note": "بريدك لا يُشارَك من أحد.",
     "action": "",
-    "fallback_email": "majed.alahdal@gmail.com"
+    "fallback_email": "majed.alahdal@gmail.com",
+    "success": "تم — وصلنا بريدك، وستصلك المقالات حين تنضج ✓",
+    "gform_action": "https://docs.google.com/forms/d/1oCGffXZQwlmSRSdSR-bB6vipy7pncpbIyFgk0JxIv5w/formResponse",
+    "gform_field": "entry.626167588"
   },
   "about": {
     "label": "عن ماجد",

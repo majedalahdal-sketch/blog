@@ -154,7 +154,11 @@
       <span class="label">النشرة البريدية</span>
       <h2>مقالة جديدة، حين تنضج</h2>
       <p>لا رسائل أسبوعية ولا ضجيج. مقالة واحدة تصلك حين تكتمل.</p>
-      <form id="newsletterForm" action="" method="post" data-fallback="majed.alahdal@gmail.com">
+      <form id="newsletterForm" action="" method="post"
+            data-fallback="majed.alahdal@gmail.com"
+            data-gform-action="https://docs.google.com/forms/d/1oCGffXZQwlmSRSdSR-bB6vipy7pncpbIyFgk0JxIv5w/formResponse"
+            data-gform-field="entry.626167588"
+            data-success="تم — وصلنا بريدك، وستصلك المقالات حين تنضج ✓">
         <input type="email" name="email" required placeholder="بريدك الإلكتروني" aria-label="بريدك الإلكتروني">
         <button type="submit">اشترك</button>
       </form>
@@ -228,7 +232,20 @@
   });
 
   var nl = document.getElementById('newsletterForm');
-  if (nl && !nl.getAttribute('action')) {
+  if (nl && nl.dataset.gformAction) {
+    // الإرسال إلى Google Form → يصل إلى جوجل شيت
+    nl.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = nl.querySelector('input[type=email]').value.trim();
+      if (!email) return;
+      var fd = new FormData();
+      fd.append(nl.dataset.gformField, email);
+      fetch(nl.dataset.gformAction, { method: 'POST', mode: 'no-cors', body: fd })
+        .finally(function () {
+          nl.outerHTML = '<p style="font-weight:500">' + nl.dataset.success + '</p>';
+        });
+    });
+  } else if (nl && !nl.getAttribute('action')) {
     nl.addEventListener('submit', function (e) {
       e.preventDefault();
       var email = nl.querySelector('input[type=email]').value;
