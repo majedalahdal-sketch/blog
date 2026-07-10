@@ -416,3 +416,36 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 .search-results .r-title { display: block; font-family: var(--font-heading); font-size: .95rem; font-weight: 700; color: var(--ink); }
 .search-results .r-meta { display: block; font-family: var(--font-ui); font-size: .72rem; color: var(--gray); margin-top: .1rem; }
 .search-results .r-none { display: block; padding: .875rem 1.125rem; font-family: var(--font-ui); font-size: .85rem; color: var(--gray); }
+
+/* ———— كُتبي (صفحة عني) ———— */
+.books { padding: 4rem 0 2rem; }
+@media (min-width: 768px) { .books { padding: 6rem 0 3rem; } }
+.books-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; }
+@media (min-width: 900px) { .books-grid { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+.book-card { display: flex; align-items: flex-start; gap: 1.5rem; }
+.book-cover { flex-shrink: 0; width: 9rem; }
+@media (min-width: 768px) { .book-cover { width: 11rem; } }
+.book-cover img {
+  width: 100%; aspect-ratio: 2 / 3; object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: 0 16px 34px -18px rgba(20,15,8,.4);
+  transition: transform .4s ease;
+}
+.book-card:hover .book-cover img { transform: translateY(-4px) rotate(-.5deg); }
+.book-body { min-width: 0; }
+.book-body h3 { font-size: 1.375rem; font-weight: 700; line-height: 1.4; margin-bottom: .375rem; }
+.book-body h3 a { transition: color .3s; }
+.book-body h3 a:hover { color: var(--accent); }
+.book-subtitle { font-family: var(--font-ui); font-size: .85rem; color: var(--gray); margin-bottom: .625rem; }
+.book-meta {
+  font-family: var(--font-ui); display: flex; flex-wrap: wrap; gap: .4rem;
+  font-size: .75rem; color: var(--gray); margin-bottom: .875rem;
+}
+.book-desc { font-size: .95rem; line-height: 1.9; color: color-mix(in srgb, var(--ink) 75%, transparent); }
+.book-link {
+  font-family: var(--font-ui); display: inline-block; margin-top: .875rem;
+  font-size: .875rem; font-weight: 500; color: var(--ink);
+  transition: color .3s, transform .3s;
+}
+.book-card:hover .book-link { color: var(--accent); transform: translateX(-4px); }
+@media (max-width: 480px) { .book-card { flex-direction: column; } .book-cover { width: 10rem; } }

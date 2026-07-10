@@ -489,6 +489,42 @@ def build_archive(site, posts):
 
 # ————— عني —————
 
+def books_section(a):
+    books = a.get("books")
+    if not books:
+        return ""
+    cards = "\n".join(f"""
+      <div class="book-card fade-in">
+        <a class="book-cover" href="{bk['link']}" target="_blank" rel="noopener">
+          <img src="../{bk['image']}" alt="غلاف {bk['title']}" loading="lazy">
+        </a>
+        <div class="book-body">
+          <h3><a href="{bk['link']}" target="_blank" rel="noopener">{bk['title']}</a></h3>
+          <p class="book-subtitle">{bk['subtitle']}</p>
+          <div class="book-meta">
+            <span>{bk['role']}</span>
+            <span>·</span>
+            <span>{bk['publisher']}</span>
+            <span>·</span>
+            <span>{bk['year']}</span>
+            <span>·</span>
+            <span>{bk['pages']}</span>
+          </div>
+          <p class="book-desc">{bk['description']}</p>
+          <a class="book-link" href="{bk['link']}" target="_blank" rel="noopener">اقتنِ الكتاب ←</a>
+        </div>
+      </div>""" for bk in books)
+    return f"""
+    <section class="books">
+      <div class="section-head">
+        <h2>{a.get('books_heading', 'كُتبي')}</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="books-grid">{cards}
+      </div>
+    </section>"""
+
+
 def build_about(site):
     rel = "../"
     a = site["about"]
@@ -521,6 +557,7 @@ def build_about(site):
         <blockquote class="about-quote">{a['quote']}</blockquote>
       </div>
     </div>
+{books_section(a)}
   </div>
 </main>"""
 
