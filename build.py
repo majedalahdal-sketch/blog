@@ -272,7 +272,11 @@ def newsletter_section(site):
       <span class="label">{n['label']}</span>
       <h2>{n['heading']}</h2>
       <p>{n['text']}</p>
-      <form id="newsletterForm" action="{action}" method="post" data-fallback="{n.get('fallback_email','')}">
+      <form id="newsletterForm" action="{action}" method="post"
+            data-fallback="{n.get('fallback_email','')}"
+            data-gform-action="{n.get('gform_action','')}"
+            data-gform-field="{n.get('gform_field','')}"
+            data-success="{n.get('success','تم الاشتراك ✓')}">
         <input type="email" name="email" required placeholder="{n['placeholder']}" aria-label="{n['placeholder']}">
         <button type="submit">{n['button']}</button>
       </form>

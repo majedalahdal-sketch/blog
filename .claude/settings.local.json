@@ -54,7 +54,11 @@
       "Bash(git commit -q -m 'الدومين الأساسي majedalahdal.me *)",
       "Bash(curl -s -o /dev/null -w \"https://majedalahdal.com → %{http_code}\\\\n\" https://majedalahdal.com)",
       "Bash(curl -s -o /dev/null -w \"http://majedalahdal.com → %{http_code} → %{redirect_url}\\\\n\" http://majedalahdal.com)",
-      "Bash(curl -s https://majedalahdal.com/post/fi-madih-al-but/)"
+      "Bash(curl -s https://majedalahdal.com/post/fi-madih-al-but/)",
+      "Bash(curl -sL \"https://docs.google.com/forms/d/1oCGffXZQwlmSRSdSR-bB6vipy7pncpbIyFgk0JxIv5w/viewform\")",
+      "Bash(curl -sL -o /dev/null -w \"%{http_code}\\\\n\" \"https://docs.google.com/forms/d/1oCGffXZQwlmSRSdSR-bB6vipy7pncpbIyFgk0JxIv5w/viewform\")",
+      "Bash(curl -sL \"https://docs.google.com/forms/d/1oCGffXZQwlmSRSdSR-bB6vipy7pncpbIyFgk0JxIv5w/viewform\" -o /tmp/../private/tmp/claude-502/-Users-majed--------/5af5dd35-e7f0-49ee-aa1a-730a5cebadca/scratchpad/form.html)",
+      "Bash(curl -sL \"https://docs.google.com/forms/d/1oCGffXZQwlmSRSdSR-bB6vipy7pncpbIyFgk0JxIv5w/viewform\" -o \"/private/tmp/claude-502/-Users-majed--------/5af5dd35-e7f0-49ee-aa1a-730a5cebadca/scratchpad/form.html\")"
     ]
   }
 }
