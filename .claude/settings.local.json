@@ -70,7 +70,8 @@
       "Bash(curl -sfL \"https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1688552691i/69797439.jpg\" -o assets/images/books/diwan-alqahwa.jpg)",
       "Bash(curl -sfL \"https://cdn.salla.sa/mDXeN/7a270ea8-af5b-421a-af4c-beaf4ef56e94-622x1000-Rcp0QYgQrgaYdCMsIXmR8KCz8JJG7CZJ4sKf4CLZ.jpg\" -o assets/images/books/thalath-rasail.jpg)",
       "Bash(file assets/images/books/*.jpg)",
-      "Bash(git commit -q -m 'قسم «كُتبي» في صفحة عني مع تحديثات نصوص الموقع *)"
+      "Bash(git commit -q -m 'قسم «كُتبي» في صفحة عني مع تحديثات نصوص الموقع *)",
+      "Bash(git commit -q -m 'نص شريط البحث قابل للتعديل من site.json *)"
     ]
   }
 }

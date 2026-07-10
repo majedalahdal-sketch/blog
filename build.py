@@ -104,7 +104,7 @@ $og_image
     </div>
     <div class="nav-search">
       <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
-      <input id="searchInput" type="search" placeholder="ابحث في المقالات…" autocomplete="off" aria-label="بحث">
+      <input id="searchInput" type="search" placeholder="$search_placeholder" autocomplete="off" aria-label="بحث">
       <div class="search-results" id="searchResults" hidden></div>
     </div>
     <a href="$home" class="nav-brand">$brand</a>
@@ -271,6 +271,7 @@ def render_page(site, *, rel, title, description, main, og_type="website", og_im
         icon_menu=ICON_MENU, icon_x=ICON_X, icon_moon=ICON_MOON, icon_sun=ICON_SUN,
         main=main, extra_js=extra_js, body_class=body_class,
         home=rel or "./",
+        search_placeholder=site.get("search_placeholder", "ابحث…"),
         search_index=search_index_json(rel),
     )
 
