@@ -107,7 +107,7 @@ $og_image
       <input id="searchInput" type="search" placeholder="ابحث في المقالات…" autocomplete="off" aria-label="بحث">
       <div class="search-results" id="searchResults" hidden></div>
     </div>
-    <a href="${rel}index.html" class="nav-brand">$brand</a>
+    <a href="$home" class="nav-brand">$brand</a>
   </div>
 </nav>
 
@@ -247,7 +247,7 @@ _ALL_POSTS = []   # يملؤها main() لفهرس البحث
 def search_index_json(rel):
     idx = [{
         "t": p["title"], "e": p.get("excerpt", ""), "c": p.get("category", ""),
-        "d": fmt_date(p["date"]), "u": f"{rel}post/{p['slug']}/index.html",
+        "d": fmt_date(p["date"]), "u": f"{rel}post/{p['slug']}/",
     } for p in _ALL_POSTS]
     return json.dumps(idx, ensure_ascii=False).replace("</", "<\\/")
 
@@ -255,10 +255,10 @@ def search_index_json(rel):
 def render_page(site, *, rel, title, description, main, og_type="website", og_image="", extra_js="", body_class=""):
     import datetime
     menu_links = "\n".join(
-        f'    <a href="{rel}{item["url"]}">{item["label"]}</a>' for item in site["nav"]
+        f'    <a href="{(rel + item["url"]) or "./"}">{item["label"]}</a>' for item in site["nav"]
     )
     footer_links = "\n".join(
-        f'          <a href="{rel}{item["url"]}">{item["label"]}</a>' for item in site["nav"]
+        f'          <a href="{(rel + item["url"]) or "./"}">{item["label"]}</a>' for item in site["nav"]
     )
     return PAGE.substitute(
         rel=rel, title=title, description=description,
@@ -270,6 +270,7 @@ def render_page(site, *, rel, title, description, main, og_type="website", og_im
         year=datetime.date.today().year,
         icon_menu=ICON_MENU, icon_x=ICON_X, icon_moon=ICON_MOON, icon_sun=ICON_SUN,
         main=main, extra_js=extra_js, body_class=body_class,
+        home=rel or "./",
         search_index=search_index_json(rel),
     )
 
@@ -315,7 +316,7 @@ def build_home(site, posts):
     rel = ""
 
     cards = "\n".join(f"""
-      <a href="post/{p['slug']}/index.html" class="post-card fade-in">
+      <a href="post/{p['slug']}/" class="post-card fade-in">
         <div class="thumb"><img src="{p['image']}" alt="{p['title']}" loading="lazy"></div>
         <div class="card-body">
           <h3>{p['title']}</h3>
@@ -354,7 +355,7 @@ def build_home(site, posts):
         </div>
         <h1>{featured['title']}</h1>
         <p class="excerpt">{featured['excerpt']}</p>
-        <a class="btn-read" href="post/{featured['slug']}/index.html">اقرأ المقالة</a>
+        <a class="btn-read" href="post/{featured['slug']}/">اقرأ المقالة</a>
       </div></div>
     </div>
     <div class="hero-rule"></div>
@@ -400,7 +401,7 @@ def build_archive(site, posts):
     groups = []
     for year, yposts in sorted(years.items(), reverse=True):
         rows = "\n".join(f"""
-        <a href="{rel}post/{p['slug']}/index.html" class="archive-row"
+        <a href="{rel}post/{p['slug']}/" class="archive-row"
            data-cat="{p['category']}" data-sub="{p.get('subcategory','')}" data-img="{rel}{p['image']}">
           <span class="date">{fmt_short(p['date'])}</span>
           <span class="cat">{p['category']}{' · ' + p['subcategory'] if p.get('subcategory') else ''}</span>
@@ -545,7 +546,7 @@ def build_post(site, p):
 <main>
   <header class="post-header">
     <div class="inner">
-      <a href="{rel}index.html" class="back-link">← العودة</a>
+      <a href="{rel or './'}" class="back-link">← العودة</a>
       <div class="meta">
         <span class="chip">{p['category']}</span>
         {f'<span>{p["subcategory"]}</span>' if p.get('subcategory') else ''}

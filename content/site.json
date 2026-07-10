@@ -7,15 +7,15 @@
   "nav": [
     {
       "label": "الرئيسية",
-      "url": "index.html"
+      "url": ""
     },
     {
       "label": "الأرشيف",
-      "url": "archive/index.html"
+      "url": "archive/"
     },
     {
       "label": "عني",
-      "url": "about/index.html"
+      "url": "about/"
     }
   ],
   "categories": [
