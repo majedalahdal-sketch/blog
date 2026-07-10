@@ -102,6 +102,11 @@ $og_image
       <button class="menu-btn" id="menuOpen" aria-label="فتح القائمة">$icon_menu</button>
       <button class="theme-btn" id="themeToggle" aria-label="تبديل الوضع الليلي">$icon_moon$icon_sun</button>
     </div>
+    <div class="nav-search">
+      <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+      <input id="searchInput" type="search" placeholder="ابحث في المقالات…" autocomplete="off" aria-label="بحث">
+      <div class="search-results" id="searchResults" hidden></div>
+    </div>
     <a href="${rel}index.html" class="nav-brand">$brand</a>
   </div>
 </nav>
@@ -183,12 +188,55 @@ $footer_links
         '&body=' + encodeURIComponent('أرغب بالاشتراك: ' + email);
     });
   }
+
+  // البحث
+  var POSTS = $search_index;
+  var sInput = document.getElementById('searchInput');
+  var sResults = document.getElementById('searchResults');
+  function norm(s) { return (s || '').replace(/[\\u064B-\\u0652]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').toLowerCase(); }
+  function renderResults(q) {
+    if (!q) { sResults.hidden = true; sResults.innerHTML = ''; return; }
+    var nq = norm(q);
+    var hits = POSTS.filter(function (p) {
+      return norm(p.t).indexOf(nq) !== -1 || norm(p.e).indexOf(nq) !== -1 || norm(p.c).indexOf(nq) !== -1;
+    }).slice(0, 6);
+    sResults.innerHTML = hits.length
+      ? hits.map(function (p) {
+          return '<a href="' + p.u + '"><span class="r-title">' + p.t + '</span><span class="r-meta">' + p.c + ' · ' + p.d + '</span></a>';
+        }).join('')
+      : '<span class="r-none">لا نتائج</span>';
+    sResults.hidden = false;
+  }
+  if (sInput) {
+    sInput.addEventListener('input', function () { renderResults(sInput.value.trim()); });
+    sInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var first = sResults.querySelector('a');
+        if (first) location.href = first.getAttribute('href');
+      }
+      if (e.key === 'Escape') { sResults.hidden = true; sInput.blur(); }
+    });
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.nav-search')) sResults.hidden = true;
+    });
+  }
 })();
 </script>
 $extra_js
 </body>
 </html>
 """)
+
+
+_ALL_POSTS = []   # يملؤها main() لفهرس البحث
+
+
+def search_index_json(rel):
+    idx = [{
+        "t": p["title"], "e": p.get("excerpt", ""), "c": p.get("category", ""),
+        "d": fmt_date(p["date"]), "u": f"{rel}post/{p['slug']}/index.html",
+    } for p in _ALL_POSTS]
+    return json.dumps(idx, ensure_ascii=False).replace("</", "<\\/")
 
 
 def render_page(site, *, rel, title, description, main, og_type="website", og_image="", extra_js="", body_class=""):
@@ -209,6 +257,7 @@ def render_page(site, *, rel, title, description, main, og_type="website", og_im
         year=datetime.date.today().year,
         icon_menu=ICON_MENU, icon_x=ICON_X, icon_moon=ICON_MOON, icon_sun=ICON_SUN,
         main=main, extra_js=extra_js, body_class=body_class,
+        search_index=search_index_json(rel),
     )
 
 
@@ -553,6 +602,8 @@ def build_feed(site, posts):
 
 def main():
     site, posts = load()
+    _ALL_POSTS.clear()
+    _ALL_POSTS.extend(posts)
 
     if OUT.exists():
         shutil.rmtree(OUT)

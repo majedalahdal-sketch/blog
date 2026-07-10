@@ -40,7 +40,17 @@
       "Bash(gh workflow *)",
       "Bash(gh run *)",
       "Bash(git commit -q -m 'نشرة بريدية، وضع ليلي، حواف ناعمة، وفلتر برتقالي داكن ٦٠٪ *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(rsync -a --exclude .git --exclude docs --exclude \"sanity/node_modules\" --exclude \"sanity/dist\" --exclude \".sanity\" \"/Users/majed/المدونة/\" \"/Users/majed/المدونة٢/\")",
+      "Bash(rm \"/Users/majed/المدونة٢/assets/css/style.css\" && tail -3 \"/private/tmp/claude-502/-Users-majed--------/5af5dd35-e7f0-49ee-aa1a-730a5cebadca/tasks/bon41jx1u.output\")",
+      "Bash(curl -sI https://majed-blog2.sanity.studio)",
+      "Bash(rm \"/Users/majed/المدونة٢/build.py\" \"/Users/majed/المدونة٢/content/site.json\" \"/Users/majed/المدونة٢/README.md\" 2>/dev/null; echo removed)",
+      "Bash(python3 -m http.server 8789 --directory docs)",
+      "Bash(git commit -q -m 'مدونة ماجد٢ — نسخة البنتو بروح ثمانية *)",
+      "Bash(gh repo *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://majedalahdal-sketch.github.io/blog2/\")",
+      "Bash(grep -o 'var POSTS = \\\\[.\\\\{0,80\\\\}' docs/index.html)",
+      "Bash(git commit -q -m 'اسم «ماجد الأهدل»، بحث، خلفية ثمانية، هوامش أوسع، وشفافية ٥٠٪ *)"
     ]
   }
 }

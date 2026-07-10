@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>عني | مدونة ماجد</title>
+<title>عني | ماجد الأهدل</title>
 <meta name="description" content="كاتب ومفكر عربي، أؤمن بأن الكلمة ليست مجرد أداة تواصل، بل هي فعل وجودي. أكتب في تقاطعات الفلسفة والأدب والثقافة، باحثاً عن المعاني التي تختبئ في تفاصي">
-<meta property="og:title" content="عني | مدونة ماجد">
+<meta property="og:title" content="عني | ماجد الأهدل">
 <meta property="og:description" content="كاتب ومفكر عربي، أؤمن بأن الكلمة ليست مجرد أداة تواصل، بل هي فعل وجودي. أكتب في تقاطعات الفلسفة والأدب والثقافة، باحثاً عن المعاني التي تختبئ في تفاصي">
 <meta property="og:type" content="website">
 
@@ -29,14 +29,19 @@
       <button class="menu-btn" id="menuOpen" aria-label="فتح القائمة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
       <button class="theme-btn" id="themeToggle" aria-label="تبديل الوضع الليلي"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="18.4" y1="18.4" x2="19.8" y2="19.8"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.2" y1="19.8" x2="5.6" y2="18.4"/><line x1="18.4" y1="5.6" x2="19.8" y2="4.2"/></svg></button>
     </div>
-    <a href="../index.html" class="nav-brand">مدونة ماجد</a>
+    <div class="nav-search">
+      <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+      <input id="searchInput" type="search" placeholder="ابحث في المقالات…" autocomplete="off" aria-label="بحث">
+      <div class="search-results" id="searchResults" hidden></div>
+    </div>
+    <a href="../index.html" class="nav-brand">ماجد الأهدل</a>
   </div>
 </nav>
 
 <div class="menu-overlay" id="menuOverlay">
   <div class="menu-head">
     <button class="menu-close" id="menuClose" aria-label="إغلاق القائمة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
-    <span class="brand">مدونة ماجد</span>
+    <span class="brand">ماجد الأهدل</span>
   </div>
   <div class="menu-links">
     <a href="../index.html">الرئيسية</a>
@@ -91,7 +96,7 @@
   <div class="container inner">
     <div class="footer-grid">
       <div>
-        <h3>مدونة ماجد</h3>
+        <h3>ماجد الأهدل</h3>
         <p class="desc">كاتب ومفكر عربي، أؤمن بأن الكلمة ليست مجرد أداة تواصل، بل هي فعل وجودي. أكتب في تقاطعات الفلسفة والأدب والثقافة، باحثاً عن المعاني التي تختبئ في تفاصي</p>
       </div>
       <div>
@@ -151,6 +156,38 @@
       location.href = 'mailto:' + nl.dataset.fallback +
         '?subject=' + encodeURIComponent('اشتراك في النشرة البريدية') +
         '&body=' + encodeURIComponent('أرغب بالاشتراك: ' + email);
+    });
+  }
+
+  // البحث
+  var POSTS = [{"t": "في مديح البطء: تأملات حول الزمن والوعي", "e": "في عالمٍ يتسارع بلا هوادة، يصبح البطء فعلاً ثورياً. هذه تأملات في معنى أن نعيش بوعي كامل، وأن نمنح كل لحظة حقها من الاهتمام والحضور.", "c": "تأمّل", "d": "2026/07/09", "u": "../post/fi-madih-al-but/index.html"}, {"t": "العمارة كذاكرة: حين تروي الجدران قصصها", "e": "كل مبنى يحمل في أحجاره حكاية. من الأزقة القديمة إلى الأبراج المعاصرة، العمارة هي المرآة التي نرى فيها أنفسنا عبر الزمن.", "c": "تأمّل", "d": "2026/07/09", "u": "../post/al-imarah-ka-thakirah/index.html"}, {"t": "لغة الصمت: ما لا تقوله الكلمات", "e": "بين الكلمات فراغات، وفي تلك الفراغات يسكن المعنى الحقيقي. تأملات في قوة الصمت وبلاغته في عالم لا يكف عن الكلام.", "c": "تأمّل", "d": "2026/07/09", "u": "../post/lughat-al-samt/index.html"}, {"t": "خرائط الداخل: رحلات في جغرافيا الذات", "e": "لكل إنسان جغرافيا داخلية: جبال من الطموح، وأنهار من الذكريات، وصحارى من الوحدة. هذه محاولة لرسم خريطة لتلك الأراضي المجهولة.", "c": "تجربة", "d": "2026/07/09", "u": "../post/kharait-al-dakhil/index.html"}, {"t": "الحرف والمعنى: في فلسفة الكتابة", "e": "الكتابة ليست مجرد نقل أفكار إلى ورق، بل هي عملية تحويل الفوضى الداخلية إلى نظام. تأملات في جوهر فعل الكتابة ومعناه.", "c": "رأي", "d": "2026/07/09", "u": "../post/al-harf-wal-mana/index.html"}];
+  var sInput = document.getElementById('searchInput');
+  var sResults = document.getElementById('searchResults');
+  function norm(s) { return (s || '').replace(/[\u064B-\u0652]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').toLowerCase(); }
+  function renderResults(q) {
+    if (!q) { sResults.hidden = true; sResults.innerHTML = ''; return; }
+    var nq = norm(q);
+    var hits = POSTS.filter(function (p) {
+      return norm(p.t).indexOf(nq) !== -1 || norm(p.e).indexOf(nq) !== -1 || norm(p.c).indexOf(nq) !== -1;
+    }).slice(0, 6);
+    sResults.innerHTML = hits.length
+      ? hits.map(function (p) {
+          return '<a href="' + p.u + '"><span class="r-title">' + p.t + '</span><span class="r-meta">' + p.c + ' · ' + p.d + '</span></a>';
+        }).join('')
+      : '<span class="r-none">لا نتائج</span>';
+    sResults.hidden = false;
+  }
+  if (sInput) {
+    sInput.addEventListener('input', function () { renderResults(sInput.value.trim()); });
+    sInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var first = sResults.querySelector('a');
+        if (first) location.href = first.getAttribute('href');
+      }
+      if (e.key === 'Escape') { sResults.hidden = true; sInput.blur(); }
+    });
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.nav-search')) sResults.hidden = true;
     });
   }
 })();
