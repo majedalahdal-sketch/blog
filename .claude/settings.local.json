@@ -72,7 +72,10 @@
       "Bash(file assets/images/books/*.jpg)",
       "Bash(git commit -q -m 'قسم «كُتبي» في صفحة عني مع تحديثات نصوص الموقع *)",
       "Bash(git commit -q -m 'نص شريط البحث قابل للتعديل من site.json *)",
-      "Bash(git commit -q -m 'كابشن اختياري لصور التدوينات *)"
+      "Bash(git commit -q -m 'كابشن اختياري لصور التدوينات *)",
+      "Bash(git pull *)",
+      "Bash(git stash *)",
+      "Bash(git commit *)"
     ]
   }
 }
