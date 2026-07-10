@@ -50,7 +50,8 @@
       "Bash(gh repo *)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://majedalahdal-sketch.github.io/blog2/\")",
       "Bash(grep -o 'var POSTS = \\\\[.\\\\{0,80\\\\}' docs/index.html)",
-      "Bash(git commit -q -m 'اسم «ماجد الأهدل»، بحث، خلفية ثمانية، هوامش أوسع، وشفافية ٥٠٪ *)"
+      "Bash(git commit -q -m 'اسم «ماجد الأهدل»، بحث، خلفية ثمانية، هوامش أوسع، وشفافية ٥٠٪ *)",
+      "Bash(git commit -q -m 'الدومين الأساسي majedalahdal.me *)"
     ]
   }
 }
