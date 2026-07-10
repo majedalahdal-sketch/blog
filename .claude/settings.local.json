@@ -75,7 +75,9 @@
       "Bash(git commit -q -m 'كابشن اختياري لصور التدوينات *)",
       "Bash(git pull *)",
       "Bash(git stash *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(curl -s \"https://majedalahdal.me/assets/css/style.css?nocache=$\\(date +%s\\)\")",
+      "Bash(curl -s \"https://majedalahdal.me/?nc=$\\(date +%s\\)\")"
     ]
   }
 }
