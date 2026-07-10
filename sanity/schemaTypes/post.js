@@ -30,7 +30,7 @@ export default defineType({
       title: 'التصنيف',
       type: 'string',
       options: {
-        list: ['رأي', 'تأمّل', 'تجربة'],
+        list: ['مراجعة', 'تدوينة', 'كتاب', 'خاطرة'],
         layout: 'radio',
         direction: 'horizontal',
       },
@@ -38,8 +38,9 @@ export default defineType({
     }),
     defineField({
       name: 'subcategory',
-      title: 'الحاسة',
+      title: 'التصنيف الفرعي (اختياري)',
       type: 'string',
+      description: 'ليس شرطاً للنشر — اتركه فارغاً إن لم يناسب التدوينة',
       options: {
         list: ['مشهد', 'طعم', 'صوت', 'رائحة', 'ملمس'],
         layout: 'radio',
