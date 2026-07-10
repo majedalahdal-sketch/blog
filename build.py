@@ -356,7 +356,7 @@ def build_home(site, posts):
         </div>
         <h1>{featured['title']}</h1>
         <p class="excerpt">{featured['excerpt']}</p>
-        <a class="btn-read" href="post/{featured['slug']}/">اقرأ المقالة</a>
+        <a class="btn-read" href="post/{featured['slug']}/">{site.get('read_button', 'اقرأ التدوينة')}</a>
       </div></div>
     </div>
     <div class="hero-rule"></div>
