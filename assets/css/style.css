@@ -98,7 +98,10 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 :root[data-theme="dark"] .theme-btn .icon-moon { display: none; }
 .nav-actions { display: flex; align-items: center; gap: .25rem; }
 .navbar .nav-inner { height: 5rem; display: flex; align-items: center; justify-content: space-between; }
-.nav-brand { font-family: var(--font-ui); font-size: 1.125rem; font-weight: 600; letter-spacing: .025em; }
+.nav-brand { display: flex; flex-direction: column; align-items: flex-start; gap: .1rem; }
+.brand-name { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; line-height: 1.2; }
+.brand-sub { font-family: var(--font-ui); font-size: .7rem; font-weight: 400; color: var(--gray); letter-spacing: .02em; }
+.has-hero .navbar:not(.scrolled) .brand-sub { color: color-mix(in srgb, var(--cream) 70%, transparent); }
 .menu-btn { width: 2.75rem; height: 2.75rem; display: flex; align-items: center; justify-content: center; transition: color .3s; }
 .menu-btn:hover { color: var(--accent); }
 .menu-btn svg { width: 1.5rem; height: 1.5rem; }

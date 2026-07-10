@@ -107,7 +107,10 @@ $og_image
       <input id="searchInput" type="search" placeholder="$search_placeholder" autocomplete="off" aria-label="بحث">
       <div class="search-results" id="searchResults" hidden></div>
     </div>
-    <a href="$home" class="nav-brand">$brand</a>
+    <a href="$home" class="nav-brand">
+      <span class="brand-name">$brand</span>
+      <span class="brand-sub">$brand_sub</span>
+    </a>
   </div>
 </nav>
 
@@ -272,6 +275,7 @@ def render_page(site, *, rel, title, description, main, og_type="website", og_im
         main=main, extra_js=extra_js, body_class=body_class,
         home=rel or "./",
         search_placeholder=site.get("search_placeholder", "ابحث…"),
+        brand_sub=site.get("brand_sub", ""),
         search_index=search_index_json(rel),
     )
 
