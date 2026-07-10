@@ -214,7 +214,8 @@ $footer_links
     if (!q) { sResults.hidden = true; sResults.innerHTML = ''; return; }
     var nq = norm(q);
     var hits = POSTS.filter(function (p) {
-      return norm(p.t).indexOf(nq) !== -1 || norm(p.e).indexOf(nq) !== -1 || norm(p.c).indexOf(nq) !== -1;
+      return norm(p.t).indexOf(nq) !== -1 || norm(p.e).indexOf(nq) !== -1 ||
+             norm(p.c).indexOf(nq) !== -1 || norm(p.b).indexOf(nq) !== -1;
     }).slice(0, 6);
     sResults.innerHTML = hits.length
       ? hits.map(function (p) {
@@ -247,9 +248,17 @@ $extra_js
 _ALL_POSTS = []   # يملؤها main() لفهرس البحث
 
 
+def _strip_html(html: str) -> str:
+    text = re.sub(r"<[^>]+>", " ", html or "")
+    text = (text.replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
+                .replace("&quot;", '"').replace("&#39;", "'").replace("&nbsp;", " "))
+    return re.sub(r"\s+", " ", text).strip()
+
+
 def search_index_json(rel):
     idx = [{
         "t": p["title"], "e": p.get("excerpt", ""), "c": p.get("category", ""),
+        "b": _strip_html(p.get("body", "")),
         "d": fmt_date(p["date"]), "u": f"{rel}post/{p['slug']}/",
     } for p in _ALL_POSTS]
     return json.dumps(idx, ensure_ascii=False).replace("</", "<\\/")
