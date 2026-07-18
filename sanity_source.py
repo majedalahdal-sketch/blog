@@ -17,7 +17,8 @@ GROQ = """*[_type == "post" && !(_id in path("drafts.**"))] | order(date desc) {
   "reading_time": readingTime, excerpt, "pull_quote": pullQuote,
   "is_featured": featured, body,
   "image_url": mainImage.asset->url, "image_id": mainImage.asset->_id,
-  "image_ext": mainImage.asset->extension
+  "image_ext": mainImage.asset->extension,
+  "image_hotspot": mainImage.hotspot{x, y}
 }"""
 
 
@@ -152,6 +153,7 @@ def fetch_posts() -> list | None:
             "pull_quote": r.get("pull_quote") or "",
             "featured": bool(r.get("is_featured")),
             "image": image,
+            "image_pos": (lambda h: f"{h['x']*100:.1f}% {h['y']*100:.1f}%" if h else "")(r.get("image_hotspot")),
             "body": portable_text_to_html(r.get("body")),
         })
     return posts

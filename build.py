@@ -313,6 +313,12 @@ def newsletter_section(site):
   </section>"""
 
 
+def img_pos(p):
+    """نمط object-position من نقطة تركيز سانيتي، إن وُجدت."""
+    pos = p.get("image_pos")
+    return f' style="object-position:{pos}"' if pos else ""
+
+
 def card_meta(p, sep='<span>·</span>'):
     parts = [f'<span>{fmt_date(p["date"])}</span>', f'<span>{p["category"]}</span>']
     if p.get("subcategory"):
@@ -331,7 +337,7 @@ def build_home(site, posts):
 
     cards = "\n".join(f"""
       <a href="post/{p['slug']}/" class="post-card fade-in">
-        <div class="thumb"><img src="{p['image']}" alt="{p['title']}" loading="lazy"></div>
+        <div class="thumb"><img src="{p['image']}" alt="{p['title']}" loading="lazy"{img_pos(p)}></div>
         <div class="card-body">
           <h3>{p['title']}</h3>
           <div class="meta">
@@ -355,7 +361,7 @@ def build_home(site, posts):
 <main>
   <section class="hero">
     <div class="hero-bg">
-      <img src="{featured['image']}" alt="">
+      <img src="{featured['image']}" alt=""{img_pos(featured)}>
       <div class="hero-fade"></div>
     </div>
     <div class="hero-ghost" aria-hidden="true">{featured['title'][:20]}</div>
@@ -594,7 +600,7 @@ def build_post(site, p):
   </header>
 
   <figure class="post-figure">
-    <div class="cover"><img src="{rel}{p['image']}" alt="{p['title']}"></div>
+    <div class="cover"><img src="{rel}{p['image']}" alt="{p['title']}"{img_pos(p)}></div>
   </figure>
 {pull}
   <article class="post-body">

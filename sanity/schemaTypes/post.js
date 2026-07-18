@@ -77,6 +77,8 @@ export default defineType({
       name: 'mainImage',
       title: 'صورة المقالة',
       type: 'image',
+      options: {hotspot: true},
+      description: 'بعد رفع الصورة: افتح قائمتها ثم «Edit hotspot and crop» وحرّك الدائرة إلى بؤرة الصورة',
     }),
     defineField({
       name: 'body',
