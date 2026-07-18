@@ -183,8 +183,10 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 @media (min-width: 768px) { .section-head { margin-bottom: 4rem; } }
 .section-head h2 { font-family: var(--font-ui); font-size: .875rem; font-weight: 600; color: var(--gray); letter-spacing: .05em; }
 .section-head .rule { flex: 1; height: .5px; background: rgba(148,163,184,.3); }
-.post-grid { display: grid; grid-template-columns: 1fr; column-gap: 4rem; row-gap: 3rem; }
-@media (min-width: 768px) { .post-grid { grid-template-columns: 1fr 1fr; column-gap: 5rem; row-gap: 4rem; } }
+/* تعبئة عمودية: العمود الأيمن (الأول في RTL) يمتلئ بالمقالات الأحدث أولًا */
+.post-grid { columns: 1; column-gap: 4rem; }
+.post-grid .post-card { break-inside: avoid; margin-bottom: 3rem; }
+@media (min-width: 768px) { .post-grid { columns: 2; column-gap: 5rem; } .post-grid .post-card { margin-bottom: 4rem; } }
 
 /* بطاقة المقالة — صف أفقي هادئ: الصورة يميناً والعنوان يسارها */
 .post-card { display: flex; align-items: flex-start; gap: 1.5rem; }
@@ -310,7 +312,7 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 .post-header h1 { font-size: clamp(2rem, 5vw, 4rem); font-weight: 700; color: var(--ink); line-height: 1.2; margin-bottom: 2rem; }
 .post-figure { max-width: 64rem; margin-bottom: 3rem; }
 .post-figure .cover { position: relative; overflow: hidden; border-radius: var(--radius-l); }
-.post-figure .cover::after { content: ''; position: absolute; inset: 0; background: var(--tint); opacity: .5; }
+/* صورة صفحة المقال بألوانها الطبيعية — التنت يبقى على مصغرات الرئيسية والأرشيف فقط */
 .post-figure img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; }
 .post-pull { max-width: 64rem; margin-bottom: 3rem; }
 .post-pull blockquote {
