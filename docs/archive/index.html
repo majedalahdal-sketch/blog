@@ -76,7 +76,6 @@
           <button class="filter-btn sense" data-filter-sub="ملمس">ملمس</button>
     </div>
 
-    <div class="ghost-img" id="ghostImg"><img src="" alt=""></div>
     <div id="archiveList">
       <div class="year-group" data-year="2026">
         <div class="year-head">
@@ -85,7 +84,7 @@
         </div>
         <div class="rows">
         <a href="../post/tal-am-alywm/" class="archive-row"
-           data-cat="خاطرة" data-sub="مشهد" data-img="../assets/images/sanity/f0fbfca1e2b27293e5ad8d9ef352d3195721849b-3073x2048-jpg.jpg">
+           data-cat="خاطرة" data-sub="مشهد">
           <span class="date">07/10</span>
           <span class="cat">خاطرة · مشهد</span>
           <h3>تألَّم اليوم، فألمُ العاجزِ عبادةٌ</h3>
@@ -93,7 +92,7 @@
         </a>
 
         <a href="../post/fi-madih-al-but/" class="archive-row"
-           data-cat="خاطرة" data-sub="مشهد" data-img="../assets/images/sanity/57e7b94e81786ac648ee4f040736f7be975b76fb-1376x768-jpg.jpg">
+           data-cat="خاطرة" data-sub="مشهد">
           <span class="date">07/09</span>
           <span class="cat">خاطرة · مشهد</span>
           <h3>في مديح البطء: تأملات حول الزمن والوعي</h3>
@@ -101,7 +100,7 @@
         </a>
 
         <a href="../post/al-imarah-ka-thakirah/" class="archive-row"
-           data-cat="خاطرة" data-sub="ملمس" data-img="../assets/images/sanity/39e679cd635c1e776dc9ce3abd4dba689a41c52d-1024x1024-jpg.jpg">
+           data-cat="خاطرة" data-sub="ملمس">
           <span class="date">07/09</span>
           <span class="cat">خاطرة · ملمس</span>
           <h3>العمارة كذاكرة: حين تروي الجدران قصصها</h3>
@@ -109,7 +108,7 @@
         </a>
 
         <a href="../post/lughat-al-samt/" class="archive-row"
-           data-cat="خاطرة" data-sub="صوت" data-img="../assets/images/sanity/a2af192b6afd70be97bcdf337d9fcf2e36f2b5f8-1264x848-jpg.jpg">
+           data-cat="خاطرة" data-sub="صوت">
           <span class="date">07/09</span>
           <span class="cat">خاطرة · صوت</span>
           <h3>لغة الصمت: ما لا تقوله الكلمات</h3>
@@ -117,7 +116,7 @@
         </a>
 
         <a href="../post/kharait-al-dakhil/" class="archive-row"
-           data-cat="تدوينة" data-sub="رائحة" data-img="../assets/images/sanity/1772a4e2dc98d0bad1fca24470e509bcabe169dd-1376x768-jpg.jpg">
+           data-cat="تدوينة" data-sub="رائحة">
           <span class="date">07/09</span>
           <span class="cat">تدوينة · رائحة</span>
           <h3>خرائط الداخل: رحلات في جغرافيا الذات</h3>
@@ -125,7 +124,7 @@
         </a>
 
         <a href="../post/al-harf-wal-mana/" class="archive-row"
-           data-cat="تدوينة" data-sub="مشهد" data-img="../assets/images/sanity/1b4c34f121270befc79645cf34262c0909815839-4912x7360-jpg.jpg">
+           data-cat="تدوينة" data-sub="مشهد">
           <span class="date">07/09</span>
           <span class="cat">تدوينة · مشهد</span>
           <h3>الحرف والمعنى: في فلسفة الكتابة</h3>
@@ -281,13 +280,6 @@
       document.querySelectorAll('[data-filter-sub]').forEach(function (x) { x.classList.toggle('active', x.dataset.filterSub === sub); });
       apply();
     });
-  });
-  var ghost = document.getElementById('ghostImg'), ghostImg = ghost.querySelector('img');
-  document.querySelectorAll('.archive-row').forEach(function (row) {
-    row.addEventListener('mouseenter', function () {
-      if (row.dataset.img) { ghostImg.src = row.dataset.img; ghost.classList.add('visible'); }
-    });
-    row.addEventListener('mouseleave', function () { ghost.classList.remove('visible'); });
   });
 })();
 </script>

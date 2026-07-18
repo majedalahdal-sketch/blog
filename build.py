@@ -416,7 +416,7 @@ def build_archive(site, posts):
     for year, yposts in sorted(years.items(), reverse=True):
         rows = "\n".join(f"""
         <a href="{rel}post/{p['slug']}/" class="archive-row"
-           data-cat="{p['category']}" data-sub="{p.get('subcategory','')}" data-img="{rel}{p['image']}">
+           data-cat="{p['category']}" data-sub="{p.get('subcategory','')}">
           <span class="date">{fmt_short(p['date'])}</span>
           <span class="cat">{p['category']}{' · ' + p['subcategory'] if p.get('subcategory') else ''}</span>
           <h3>{p['title']}</h3>
@@ -446,7 +446,6 @@ def build_archive(site, posts):
 {sense_buttons}
     </div>
 
-    <div class="ghost-img" id="ghostImg"><img src="" alt=""></div>
     <div id="archiveList">{''.join(groups)}
     </div>
     <p class="archive-empty" id="archiveEmpty" hidden>لا توجد مقالات بعد.</p>
@@ -482,13 +481,6 @@ def build_archive(site, posts):
       document.querySelectorAll('[data-filter-sub]').forEach(function (x) { x.classList.toggle('active', x.dataset.filterSub === sub); });
       apply();
     });
-  });
-  var ghost = document.getElementById('ghostImg'), ghostImg = ghost.querySelector('img');
-  document.querySelectorAll('.archive-row').forEach(function (row) {
-    row.addEventListener('mouseenter', function () {
-      if (row.dataset.img) { ghostImg.src = row.dataset.img; ghost.classList.add('visible'); }
-    });
-    row.addEventListener('mouseleave', function () { ghost.classList.remove('visible'); });
   });
 })();
 </script>"""
