@@ -3,7 +3,7 @@ name: إعادة بناء الموقع من سانيتي
 on:
   workflow_dispatch:        # زر تشغيل يدوي من GitHub
   schedule:
-    - cron: '0 */6 * * *'   # كل ٦ ساعات
+    - cron: '*/10 * * * *'  # كل ١٠ دقائق
   repository_dispatch:
     types: [sanity-publish] # webhook من سانيتي (اختياري)
 
