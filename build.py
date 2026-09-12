@@ -611,6 +611,7 @@ def build_post(site, p):
 
   <div class="end-marker">■</div>
   <hr class="mistarah post-rule">
+{newsletter_section(site)}
 </main>"""
 
     extra_js = """<script>
