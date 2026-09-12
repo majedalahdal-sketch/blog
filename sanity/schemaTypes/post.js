@@ -92,6 +92,9 @@ export default defineType({
             {title: 'عنوان فرعي', value: 'h2'},
             {title: 'عنوان أصغر', value: 'h3'},
             {title: 'اقتباس', value: 'blockquote'},
+            {title: 'ضبط (Justify)', value: 'justify'},
+            {title: 'توسيط', value: 'center'},
+            {title: 'محاذاة يسار', value: 'left'},
           ],
         },
         {

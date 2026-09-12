@@ -85,6 +85,10 @@ def portable_text_to_html(blocks) -> str:
             list_open = False
         if not content.strip():
             continue
+        align = {"center": "center", "justify": "justify", "left": "left"}.get(style)
+        if align:
+            html.append(f'<p style="text-align:{align}">{content}</p>')
+            continue
         tag = {"h2": "h2", "h3": "h3", "blockquote": "blockquote"}.get(style, "p")
         html.append(f"<{tag}>{content}</{tag}>")
     if list_open:
