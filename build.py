@@ -101,6 +101,7 @@ $og_image
     <div class="nav-actions">
       <button class="menu-btn" id="menuOpen" aria-label="فتح القائمة">$icon_menu</button>
       <button class="theme-btn" id="themeToggle" aria-label="تبديل الوضع الليلي">$icon_moon$icon_sun</button>
+      <a href="${rel}subscribe/" class="nav-subscribe"><span class="full">اشترك في النشرة</span><span class="short">اشترك</span></a>
     </div>
     <div class="nav-search">
       <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>

@@ -97,6 +97,10 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 :root[data-theme="dark"] .theme-btn .icon-sun { display: block; }
 :root[data-theme="dark"] .theme-btn .icon-moon { display: none; }
 .nav-actions { display: flex; align-items: center; gap: .25rem; }
+.nav-subscribe { font-family: var(--font-ui); font-size: .8rem; font-weight: 600; background: var(--accent); color: var(--cream); padding: .5rem .95rem; border-radius: 999px; white-space: nowrap; transition: opacity .2s; margin-inline-start: .4rem; }
+.nav-subscribe:hover { opacity: .88; color: var(--cream); }
+.nav-subscribe .short { display: none; }
+@media (max-width: 700px) { .nav-subscribe .full { display: none; } .nav-subscribe .short { display: inline; } .nav-subscribe { font-size: .78rem; padding: .45rem .8rem; } }
 .navbar .nav-inner { height: 5rem; display: flex; align-items: center; justify-content: space-between; }
 .nav-brand { display: inline-flex; flex-direction: column; align-items: stretch; gap: .1rem; }
 .brand-name { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; line-height: 1.2; }
