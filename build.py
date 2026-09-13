@@ -182,15 +182,15 @@ $footer_links
   });
 
   var nl = document.getElementById('newsletterForm');
-  if (nl && nl.dataset.gformAction) {
-    // الإرسال إلى Google Form → يصل إلى جوجل شيت
+  if (nl && nl.dataset.subscribeAction) {
+    // الإرسال إلى مزوّد النشرة (Buttondown)
     nl.addEventListener('submit', function (e) {
       e.preventDefault();
       var email = nl.querySelector('input[type=email]').value.trim();
       if (!email) return;
       var fd = new FormData();
-      fd.append(nl.dataset.gformField, email);
-      fetch(nl.dataset.gformAction, { method: 'POST', mode: 'no-cors', body: fd })
+      fd.append(nl.dataset.subscribeField, email);
+      fetch(nl.dataset.subscribeAction, { method: 'POST', mode: 'no-cors', body: fd })
         .finally(function () {
           nl.outerHTML = '<p style="font-weight:500">' + nl.dataset.success + '</p>';
         });
@@ -302,8 +302,8 @@ def newsletter_section(site):
       <p>{n['text']}</p>
       <form id="newsletterForm" action="{action}" method="post"
             data-fallback="{n.get('fallback_email','')}"
-            data-gform-action="{n.get('gform_action','')}"
-            data-gform-field="{n.get('gform_field','')}"
+            data-subscribe-action="{n.get('subscribe_action','')}"
+            data-subscribe-field="{n.get('subscribe_field','')}"
             data-success="{n.get('success','تم الاشتراك ✓')}">
         <input type="email" name="email" required placeholder="{n['placeholder']}" aria-label="{n['placeholder']}">
         <button type="submit">{n['button']}</button>

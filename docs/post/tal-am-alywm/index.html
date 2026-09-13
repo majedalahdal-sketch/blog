@@ -102,9 +102,9 @@
       <p>لا رسائل أسبوعية ولا ضجيج. تدوينة واحدة تصلك حين تكتمل.</p>
       <form id="newsletterForm" action="" method="post"
             data-fallback="majed.alahdal@gmail.com"
-            data-gform-action="https://docs.google.com/forms/d/1oCGffXZQwlmSRSdSR-bB6vipy7pncpbIyFgk0JxIv5w/formResponse"
-            data-gform-field="entry.626167588"
-            data-success="وصلني بريدك، مرحبا بك في النشرة ✓">
+            data-subscribe-action="https://buttondown.com/api/emails/embed-subscribe/majedalahdal"
+            data-subscribe-field="email"
+            data-success="وصلني بريدك — تحقّق من صندوق بريدك لتأكيد الاشتراك ✓">
         <input type="email" name="email" required placeholder="بريدك الإلكتروني" aria-label="بريدك الإلكتروني">
         <button type="submit">اشترك</button>
       </form>
@@ -170,15 +170,15 @@
   });
 
   var nl = document.getElementById('newsletterForm');
-  if (nl && nl.dataset.gformAction) {
-    // الإرسال إلى Google Form → يصل إلى جوجل شيت
+  if (nl && nl.dataset.subscribeAction) {
+    // الإرسال إلى مزوّد النشرة (Buttondown)
     nl.addEventListener('submit', function (e) {
       e.preventDefault();
       var email = nl.querySelector('input[type=email]').value.trim();
       if (!email) return;
       var fd = new FormData();
-      fd.append(nl.dataset.gformField, email);
-      fetch(nl.dataset.gformAction, { method: 'POST', mode: 'no-cors', body: fd })
+      fd.append(nl.dataset.subscribeField, email);
+      fetch(nl.dataset.subscribeAction, { method: 'POST', mode: 'no-cors', body: fd })
         .finally(function () {
           nl.outerHTML = '<p style="font-weight:500">' + nl.dataset.success + '</p>';
         });

@@ -41,9 +41,9 @@
     "note": "بريدك لا يُشارَك من أحد.",
     "action": "",
     "fallback_email": "majed.alahdal@gmail.com",
-    "success": "وصلني بريدك، مرحبا بك في النشرة ✓",
-    "gform_action": "https://docs.google.com/forms/d/1oCGffXZQwlmSRSdSR-bB6vipy7pncpbIyFgk0JxIv5w/formResponse",
-    "gform_field": "entry.626167588"
+    "success": "وصلني بريدك — تحقّق من صندوق بريدك لتأكيد الاشتراك ✓",
+    "subscribe_action": "https://buttondown.com/api/emails/embed-subscribe/majedalahdal",
+    "subscribe_field": "email"
   },
   "about": {
     "label": "عن ماجد",
