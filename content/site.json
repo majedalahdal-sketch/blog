@@ -42,8 +42,8 @@
     "action": "",
     "fallback_email": "majed.alahdal@gmail.com",
     "success": "وصلني بريدك — تحقّق من صندوق بريدك لتأكيد الاشتراك ✓",
-    "subscribe_action": "https://buttondown.com/api/emails/embed-subscribe/majedalahdal",
-    "subscribe_field": "email"
+    "subscribe_action": "https://assets.mailerlite.com/jsonp/2632638/forms/198495869928998437/subscribe",
+    "subscribe_field": "fields[email]"
   },
   "about": {
     "label": "عن ماجد",
