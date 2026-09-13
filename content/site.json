@@ -16,6 +16,10 @@
     {
       "label": "عني",
       "url": "about/"
+    },
+    {
+      "label": "النشرة",
+      "url": "subscribe/"
     }
   ],
   "categories": [

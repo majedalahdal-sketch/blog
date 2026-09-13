@@ -574,6 +574,23 @@ def build_about(site):
     )
 
 
+# ————— صفحة النشرة —————
+
+def build_subscribe(site):
+    rel = "../"
+    n = site.get("newsletter", {})
+    main = f"""
+<main class="page subscribe-page">
+{newsletter_section(site)}
+</main>"""
+    return render_page(
+        site, rel=rel,
+        title=f"{n.get('label', 'النشرة البريدية')} | {site['brand']}",
+        description=n.get("text", site.get("description", "")),
+        main=main,
+    )
+
+
 # ————— صفحة المقالة —————
 
 def build_post(site, p):
@@ -688,6 +705,9 @@ def main():
     (OUT / "about").mkdir()
     (OUT / "about" / "index.html").write_text(latinize(build_about(site)), encoding="utf-8")
 
+    (OUT / "subscribe").mkdir()
+    (OUT / "subscribe" / "index.html").write_text(latinize(build_subscribe(site)), encoding="utf-8")
+
     for p in posts:
         d = OUT / "post" / p["slug"]
         d.mkdir(parents=True)
@@ -704,7 +724,7 @@ def main():
         if not host.endswith("github.io"):
             (OUT / "CNAME").write_text(host + "\n")
 
-    n = 3 + len(posts)
+    n = 4 + len(posts)
     print(f"تم البناء ✓  {n} صفحات في docs/  ({len(posts)} مقالة)")
 
 

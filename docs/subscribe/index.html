@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الأرشيف | ماجد الأهدل</title>
-<meta name="description" content="كل ما كُتب، مرتّباً بحسب الزمن.">
-<meta property="og:title" content="الأرشيف | ماجد الأهدل">
-<meta property="og:description" content="كل ما كُتب، مرتّباً بحسب الزمن.">
+<title>النشرة البريدية | ماجد الأهدل</title>
+<meta name="description" content="لا رسائل أسبوعية ولا ضجيج. تدوينة واحدة تصلك حين تكتمل.">
+<meta property="og:title" content="النشرة البريدية | ماجد الأهدل">
+<meta property="og:description" content="لا رسائل أسبوعية ولا ضجيج. تدوينة واحدة تصلك حين تكتمل.">
 <meta property="og:type" content="website">
 
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
@@ -56,78 +56,24 @@
 </div>
 
 
-<main class="page archive">
-  <div class="container">
-    <h1>الأرشيف</h1>
-    <p class="sub">كل ما كُتب، مرتّباً بحسب الزمن.</p>
+<main class="page subscribe-page">
 
-    <div class="filter-row">
-          <button class="filter-btn active" data-filter-cat="">الكل</button>
-          <button class="filter-btn" data-filter-cat="مراجعة">مراجعة</button>
-          <button class="filter-btn" data-filter-cat="تدوينة">تدوينة</button>
-          <button class="filter-btn" data-filter-cat="كتاب">كتاب</button>
-          <button class="filter-btn" data-filter-cat="خاطرة">خاطرة</button>
-    </div>
-    <div class="filter-row senses">
-      <span class="senses-label">الحواس:</span>
-          <button class="filter-btn sense" data-filter-sub="مشهد">مشهد</button>
-          <button class="filter-btn sense" data-filter-sub="طعم">طعم</button>
-          <button class="filter-btn sense" data-filter-sub="صوت">صوت</button>
-          <button class="filter-btn sense" data-filter-sub="رائحة">رائحة</button>
-          <button class="filter-btn sense" data-filter-sub="ملمس">ملمس</button>
-    </div>
-
-    <div id="archiveList">
-      <div class="year-group" data-year="2026">
-        <div class="year-head">
-          <span class="year">2026</span>
-          <div class="rule-wrap"><hr class="mistarah"></div>
-        </div>
-        <div class="rows">
-        <a href="../post/alnzwl-mn-albas/" class="archive-row"
-           data-cat="تدوينة" data-sub="">
-          <span class="date">09/12</span>
-          <span class="cat">تدوينة</span>
-          <h3>النزول من الباص: آدابٌ في التعامل مع النهايات المؤلمة</h3>
-          <span class="rt">15 د</span>
-        </a>
-
-        <a href="../post/itidhar-li-baris/" class="archive-row"
-           data-cat="تدوينة" data-sub="">
-          <span class="date">07/18</span>
-          <span class="cat">تدوينة</span>
-          <h3>استحماض العنب غير المُطال: اعتذارٌ لباريس</h3>
-          <span class="rt">4 د</span>
-        </a>
-
-        <a href="../post/la-takun-waraqat-nana/" class="archive-row"
-           data-cat="تدوينة" data-sub="طعم">
-          <span class="date">07/18</span>
-          <span class="cat">تدوينة · طعم</span>
-          <h3>لا تكن ورقة نعناع</h3>
-          <span class="rt">4 د</span>
-        </a>
-
-        <a href="../post/al-minshawi-malak-haris/" class="archive-row"
-           data-cat="خاطرة" data-sub="صوت">
-          <span class="date">07/18</span>
-          <span class="cat">خاطرة · صوت</span>
-          <h3>المنشاوي.. ملاك حارس</h3>
-          <span class="rt">4 د</span>
-        </a>
-
-        <a href="../post/tal-am-alywm/" class="archive-row"
-           data-cat="خاطرة" data-sub="مشهد">
-          <span class="date">07/10</span>
-          <span class="cat">خاطرة · مشهد</span>
-          <h3>تألَّم اليوم، فألمُ العاجزِ عبادةٌ</h3>
-          <span class="rt">3 د</span>
-        </a>
-        </div>
-      </div>
-    </div>
-    <p class="archive-empty" id="archiveEmpty" hidden>لا توجد مقالات بعد.</p>
-  </div>
+  <section class="newsletter">
+    <div class="container"><div class="inner">
+      <span class="label">النشرة البريدية</span>
+      <h2>تدوينة جديدة على بريدك، حين تنضج</h2>
+      <p>لا رسائل أسبوعية ولا ضجيج. تدوينة واحدة تصلك حين تكتمل.</p>
+      <form id="newsletterForm" action="" method="post"
+            data-fallback="majed.alahdal@gmail.com"
+            data-subscribe-action="https://assets.mailerlite.com/jsonp/2632638/forms/198495869928998437/subscribe"
+            data-subscribe-field="fields[email]"
+            data-success="وصلني بريدك — تحقّق من صندوق بريدك لتأكيد الاشتراك ✓">
+        <input type="email" name="email" required placeholder="بريدك الإلكتروني" aria-label="بريدك الإلكتروني">
+        <button type="submit">اشترك</button>
+      </form>
+      <p class="note">بريدك لا يُشارَك مع أحد.</p>
+    </div></div>
+  </section>
 </main>
 
 <footer class="footer">
@@ -135,7 +81,7 @@
     <div class="footer-grid">
       <div>
         <h3>ماجد الأهدل</h3>
-        <p class="desc">كل ما كُتب، مرتّباً بحسب الزمن.</p>
+        <p class="desc">لا رسائل أسبوعية ولا ضجيج. تدوينة واحدة تصلك حين تكتمل.</p>
       </div>
       <div>
         <h4>تصفّح</h4>
@@ -247,37 +193,6 @@
   }
 })();
 </script>
-<script>
-(function () {
-  var cat = '', sub = '';
-  function apply() {
-    var any = false;
-    document.querySelectorAll('.archive-row').forEach(function (row) {
-      var show = (!cat || row.dataset.cat === cat) && (!sub || row.dataset.sub === sub);
-      row.style.display = show ? '' : 'none';
-      if (show) any = true;
-    });
-    document.querySelectorAll('.year-group').forEach(function (g) {
-      var visible = [].some.call(g.querySelectorAll('.archive-row'), function (r) { return r.style.display !== 'none'; });
-      g.style.display = visible ? '' : 'none';
-    });
-    document.getElementById('archiveEmpty').hidden = any;
-  }
-  document.querySelectorAll('[data-filter-cat]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      cat = b.dataset.filterCat;
-      document.querySelectorAll('[data-filter-cat]').forEach(function (x) { x.classList.toggle('active', x === b); });
-      apply();
-    });
-  });
-  document.querySelectorAll('[data-filter-sub]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      sub = (sub === b.dataset.filterSub) ? '' : b.dataset.filterSub;
-      document.querySelectorAll('[data-filter-sub]').forEach(function (x) { x.classList.toggle('active', x.dataset.filterSub === sub); });
-      apply();
-    });
-  });
-})();
-</script>
+
 </body>
 </html>
