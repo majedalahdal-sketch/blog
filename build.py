@@ -94,6 +94,7 @@ $og_image
   }
 })();
 </script>
+$ga
 </head>
 <body class="$body_class">
 <nav class="navbar" id="navbar">
@@ -267,6 +268,18 @@ def search_index_json(rel):
     return json.dumps(idx, ensure_ascii=False).replace("</", "<\\/")
 
 
+def ga_snippet(site):
+    gid = (site.get("ga_id") or "").strip()
+    if not gid:
+        return ""
+    return (
+        f'<!-- Google Analytics (GA4) -->\n'
+        f'<script async src="https://www.googletagmanager.com/gtag/js?id={gid}"></script>\n'
+        f'<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}'
+        f"gtag('js',new Date());gtag('config','{gid}');</script>"
+    )
+
+
 def render_page(site, *, rel, title, description, main, og_type="website", og_image="", extra_js="", body_class=""):
     import datetime
     menu_links = "\n".join(
@@ -289,6 +302,7 @@ def render_page(site, *, rel, title, description, main, og_type="website", og_im
         search_placeholder=site.get("search_placeholder", "ابحث…"),
         brand_sub=site.get("brand_sub", ""),
         search_index=search_index_json(rel),
+        ga=ga_snippet(site),
     )
 
 
