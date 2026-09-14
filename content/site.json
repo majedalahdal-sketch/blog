@@ -45,7 +45,7 @@
     "note": "بريدك لا يُشارَك مع أحد.",
     "action": "",
     "fallback_email": "majed.alahdal@gmail.com",
-    "success": "وصلني بريدك — تحقّق من صندوق بريدك لتأكيد الاشتراك ✓",
+    "success": "وصلني بريدك ✓ — ستصلك تدوينة حين تنضج.",
     "subscribe_action": "https://assets.mailerlite.com/jsonp/2632638/forms/198495869928998437/subscribe",
     "subscribe_field": "fields[email]"
   },
