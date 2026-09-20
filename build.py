@@ -185,15 +185,13 @@ $footer_links
 
   var nl = document.getElementById('newsletterForm');
   if (nl && nl.dataset.subscribeAction) {
-    // الإرسال إلى مزوّد النشرة (MailerLite)
+    // الإرسال إلى مزوّد النشرة (Kit)
     nl.addEventListener('submit', function (e) {
       e.preventDefault();
       var email = nl.querySelector('input[type=email]').value.trim();
       if (!email) return;
       var fd = new FormData();
       fd.append(nl.dataset.subscribeField, email);
-      fd.append('ml-submit', '1');
-      fd.append('anticsrf', 'true');
       fetch(nl.dataset.subscribeAction, { method: 'POST', mode: 'no-cors', body: fd })
         .finally(function () {
           nl.outerHTML = '<p style="font-weight:500">' + nl.dataset.success + '</p>';

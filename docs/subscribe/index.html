@@ -69,8 +69,8 @@
       <p>لا رسائل أسبوعية ولا ضجيج. تدوينة واحدة تصلك حين تكتمل.</p>
       <form id="newsletterForm" action="" method="post"
             data-fallback="majed.alahdal@gmail.com"
-            data-subscribe-action="https://assets.mailerlite.com/jsonp/2632638/forms/198495869928998437/subscribe"
-            data-subscribe-field="fields[email]"
+            data-subscribe-action="https://app.kit.com/forms/9940844/subscriptions"
+            data-subscribe-field="email_address"
             data-success="وصلني بريدك ✓ — ستصلك تدوينة حين تنضج.">
         <input type="email" name="email" required placeholder="بريدك الإلكتروني" aria-label="بريدك الإلكتروني">
         <button type="submit">اشترك</button>
@@ -139,15 +139,13 @@
 
   var nl = document.getElementById('newsletterForm');
   if (nl && nl.dataset.subscribeAction) {
-    // الإرسال إلى مزوّد النشرة (MailerLite)
+    // الإرسال إلى مزوّد النشرة (Kit)
     nl.addEventListener('submit', function (e) {
       e.preventDefault();
       var email = nl.querySelector('input[type=email]').value.trim();
       if (!email) return;
       var fd = new FormData();
       fd.append(nl.dataset.subscribeField, email);
-      fd.append('ml-submit', '1');
-      fd.append('anticsrf', 'true');
       fetch(nl.dataset.subscribeAction, { method: 'POST', mode: 'no-cors', body: fd })
         .finally(function () {
           nl.outerHTML = '<p style="font-weight:500">' + nl.dataset.success + '</p>';
