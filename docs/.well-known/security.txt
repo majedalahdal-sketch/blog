@@ -1,0 +1,4 @@
+Contact: mailto:majed.alahdal@gmail.com
+Expires: 2027-12-31T23:59:59Z
+Preferred-Languages: ar, en
+Canonical: https://majedalahdal.me/.well-known/security.txt
