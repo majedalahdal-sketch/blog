@@ -60,8 +60,12 @@ def portable_text_to_html(blocks) -> str:
             src = _localize_body_image(ref)
             if not src:
                 continue
-            alt = _escape(b.get("alt") or b.get("caption") or "")
             caption = b.get("caption")
+            alt_text = b.get("alt") or ""
+            # إن كان النص البديل هو التعليق نفسه فالتعليق يكفي (لا تكرار لقارئ الشاشة)
+            if caption and alt_text.strip() == caption.strip():
+                alt_text = ""
+            alt = _escape(alt_text)
             if caption:
                 html.append(
                     f'<figure><img src="{src}" alt="{alt}" loading="lazy">'
@@ -109,12 +113,27 @@ def _asset_ref_to_url(ref: str) -> str:
 # ————— الصور: تنزيل محلي مع تخزين مؤقت —————
 
 def _localize_image(url: str, asset_id: str, ext: str) -> str:
+    """تنزيل الصورة بصيغة WebP (عرض 1600 كحدّ أقصى) — أخفّ بكثير من PNG الأصلي."""
     imgdir = ROOT / "assets" / "images" / "sanity"
     imgdir.mkdir(parents=True, exist_ok=True)
-    name = f"{asset_id.replace('image-', '')}.{ext}"
+    name = f"{asset_id.replace('image-', '')}.webp"
     dest = imgdir / name
     if not dest.exists():
-        dest.write_bytes(_http_get(url + "?w=1600&fit=max&auto=format"))
+        dest.write_bytes(_http_get(url + "?w=1600&fit=max&fm=webp&q=90"))
+    return f"assets/images/sanity/{name}"
+
+
+def _localize_og_image(url: str, asset_id: str, hotspot) -> str:
+    """نسخة JPEG بمقاس 1200×630 لمعاينة الرابط في واتساب وX وغيرهما."""
+    imgdir = ROOT / "assets" / "images" / "sanity"
+    imgdir.mkdir(parents=True, exist_ok=True)
+    name = f"{asset_id.replace('image-', '')}-og.jpg"
+    dest = imgdir / name
+    if not dest.exists():
+        q = "?w=1200&h=630&fit=crop&fm=jpg&q=88"
+        if hotspot:
+            q += f"&crop=focalpoint&fp-x={hotspot['x']:.3f}&fp-y={hotspot['y']:.3f}"
+        dest.write_bytes(_http_get(url + q))
     return f"assets/images/sanity/{name}"
 
 
@@ -143,9 +162,13 @@ def fetch_posts() -> list | None:
     for r in rows:
         if not r.get("slug"):
             continue
-        image = ""
+        image = og_image = ""
         if r.get("image_url"):
             image = _localize_image(r["image_url"], r["image_id"], r.get("image_ext", "jpg"))
+            try:
+                og_image = _localize_og_image(r["image_url"], r["image_id"], r.get("image_hotspot"))
+            except Exception:
+                og_image = ""
         posts.append({
             "slug": r["slug"],
             "title": r.get("title", ""),
@@ -157,6 +180,7 @@ def fetch_posts() -> list | None:
             "pull_quote": r.get("pull_quote") or "",
             "featured": bool(r.get("is_featured")),
             "image": image,
+            "og_image": og_image,
             "image_pos": (lambda h: f"{h['x']*100:.1f}% {h['y']*100:.1f}%" if h else "")(r.get("image_hotspot")),
             "body": portable_text_to_html(r.get("body")),
         })

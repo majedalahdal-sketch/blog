@@ -81,7 +81,7 @@ PAGE = Template("""<!DOCTYPE html>
 <meta property="og:title" content="$title">
 <meta property="og:description" content="$description">
 <meta property="og:type" content="$og_type">
-$og_image
+$head_extra
 <link rel="icon" href="${rel}assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="${rel}assets/css/style.css">
 <script>
@@ -133,11 +133,11 @@ $main
   <div class="container inner">
     <div class="footer-grid">
       <div>
-        <h3>$brand</h3>
+        <p class="footer-title">$brand</p>
         <p class="desc">$description</p>
       </div>
       <div>
-        <h4>تصفّح</h4>
+        <p class="footer-sub">تصفّح</p>
         <nav>
 $footer_links
         </nav>
@@ -257,6 +257,106 @@ def _strip_html(html: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
+# ————— أدوات مساعدة: الروابط المطلقة وأبعاد الصور —————
+
+def site_url(site):
+    return (site.get("site_url") or "").rstrip("/")
+
+
+def html_attr(s: str) -> str:
+    return (s or "").replace("&", "&amp;").replace('"', "&quot;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def _read_image_size(path: Path):
+    """عرض وارتفاع صورة PNG أو JPEG أو WebP بمكتبة بايثون القياسية فقط."""
+    try:
+        data = path.read_bytes()
+    except OSError:
+        return None
+    import struct
+    if data[:8] == b"\x89PNG\r\n\x1a\n":
+        return struct.unpack(">II", data[16:24])
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        kind = data[12:16]
+        if kind == b"VP8 ":
+            w, h = struct.unpack("<HH", data[26:30])
+            return w & 0x3FFF, h & 0x3FFF
+        if kind == b"VP8L":
+            b = data[21:25]
+            w = 1 + (((b[1] & 0x3F) << 8) | b[0])
+            h = 1 + (((b[3] & 0xF) << 10) | (b[2] << 2) | ((b[1] & 0xC0) >> 6))
+            return w, h
+        if kind == b"VP8X":
+            w = 1 + int.from_bytes(data[24:27], "little")
+            h = 1 + int.from_bytes(data[27:30], "little")
+            return w, h
+    if data[:2] == b"\xff\xd8":
+        i = 2
+        while i < len(data) - 9:
+            if data[i] != 0xFF:
+                i += 1
+                continue
+            marker = data[i + 1]
+            if marker in (0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF):
+                h, w = struct.unpack(">HH", data[i + 5:i + 9])
+                return w, h
+            i += 2 + struct.unpack(">H", data[i + 2:i + 4])[0]
+    return None
+
+
+def img_dims(src: str) -> str:
+    """width/height للصورة (يمنع قفز الصفحة أثناء التحميل). src نسبي إلى جذر الموقع."""
+    src = re.sub(r"^(\.\./)+", "", src or "")
+    m = re.search(r"-(\d+)x(\d+)", Path(src).name)
+    if m:
+        w, h = int(m.group(1)), int(m.group(2))
+        if w > 1600:                       # سانيتي يصغّرها إلى عرض 1600
+            w, h = 1600, round(h * 1600 / w)
+    else:
+        size = _read_image_size(ROOT / src)
+        if not size:
+            return ""
+        w, h = size
+    return f' width="{w}" height="{h}"'
+
+
+def add_body_img_dims(html: str) -> str:
+    """أبعاد لصور متن التدوينة، والصورة الأولى تُحمَّل فوراً بلا تأجيل."""
+    first = [True]
+
+    def fix(m):
+        tag = m.group(0)
+        if "width=" not in tag:
+            src = re.search(r'src="([^"]+)"', tag)
+            if src:
+                tag = tag.replace("<img ", "<img" + img_dims(src.group(1)) + " ", 1)
+        if first[0]:
+            tag = tag.replace(' loading="lazy"', "")
+            first[0] = False
+        return tag
+
+    return re.sub(r"<img\b[^>]*>", fix, html)
+
+
+def person_ld(site, full=False):
+    url = site_url(site)
+    a = site.get("about", {})
+    p = {"@type": "Person", "@id": f"{url}/#person", "name": site["brand"], "url": f"{url}/about/"}
+    if a.get("image"):
+        p["image"] = f"{url}/{a['image']}"
+    if full:
+        p["description"] = _strip_html(a.get("paragraphs", [""])[0])
+        books = a.get("books") or []
+        if books:
+            p["workExample"] = [{
+                "@type": "Book", "name": b["title"], "inLanguage": "ar",
+                "publisher": {"@type": "Organization", "name": b["publisher"]},
+                "datePublished": b["year"], "url": b["link"],
+                **({"image": f"{url}/{b['image']}"} if b.get("image") else {}),
+            } for b in books]
+    return p
+
+
 def search_index_json(rel):
     idx = [{
         "t": p["title"], "e": p.get("excerpt", ""), "c": p.get("category", ""),
@@ -278,7 +378,32 @@ def ga_snippet(site):
     )
 
 
-def render_page(site, *, rel, title, description, main, og_type="website", og_image="", extra_js="", body_class=""):
+def head_extra(site, *, rel, path, title, og_image="", preload="", jsonld=None):
+    """canonical وog:url وصورة المشاركة وتحميل صورة LCP مسبقاً والبيانات المنظّمة."""
+    out = []
+    url = site_url(site)
+    if url:
+        canon = f"{url}/{path}"
+        out.append(f'<link rel="canonical" href="{canon}">')
+        out.append(f'<meta property="og:url" content="{canon}">')
+        out.append(f'<meta property="og:site_name" content="{site["brand"]}">')
+        out.append('<meta property="og:locale" content="ar_AR">')
+    if og_image and url:
+        out.append(f'<meta property="og:image" content="{url}/{og_image}">')
+        out.append(f'<meta property="og:image:alt" content="{html_attr(title)}">')
+        large = og_image.endswith("-og.jpg")
+        out.append(f'<meta name="twitter:card" content="{"summary_large_image" if large else "summary"}">')
+        out.append(f'<meta name="twitter:image" content="{url}/{og_image}">')
+    if preload:
+        out.append(f'<link rel="preload" as="image" href="{rel}{preload}" fetchpriority="high">')
+    if jsonld:
+        data = json.dumps(jsonld, ensure_ascii=False, indent=1).replace("</", "<\\/")
+        out.append(f'<script type="application/ld+json">\n{data}\n</script>')
+    return "\n".join(out)
+
+
+def render_page(site, *, rel, title, description, main, path="", og_type="website", og_image="",
+                preload="", jsonld=None, extra_js="", body_class=""):
     import datetime
     menu_links = "\n".join(
         f'    <a href="{(rel + item["url"]) or "./"}">{item["label"]}</a>' for item in site["nav"]
@@ -289,7 +414,8 @@ def render_page(site, *, rel, title, description, main, og_type="website", og_im
     return PAGE.substitute(
         rel=rel, title=title, description=description,
         og_type=og_type,
-        og_image=f'<meta property="og:image" content="{og_image}">' if og_image else "",
+        head_extra=head_extra(site, rel=rel, path=path, title=title, og_image=og_image,
+                              preload=preload, jsonld=jsonld),
         brand=site["brand"], tagline=site["tagline"],
         menu_links=menu_links, footer_links=footer_links,
         footer_note=site["footer_note"],
@@ -304,7 +430,7 @@ def render_page(site, *, rel, title, description, main, og_type="website", og_im
     )
 
 
-def newsletter_section(site):
+def newsletter_section(site, heading_tag="h2"):
     n = site.get("newsletter")
     if not n:
         return ""
@@ -313,14 +439,14 @@ def newsletter_section(site):
   <section class="newsletter">
     <div class="container"><div class="inner">
       <span class="label">{n['label']}</span>
-      <h2>{n['heading']}</h2>
+      <{heading_tag}>{n['heading']}</{heading_tag}>
       <p>{n['text']}</p>
       <form id="newsletterForm" action="{action}" method="post"
             data-fallback="{n.get('fallback_email','')}"
             data-subscribe-action="{n.get('subscribe_action','')}"
             data-subscribe-field="{n.get('subscribe_field','')}"
             data-success="{n.get('success','تم الاشتراك ✓')}">
-        <input type="email" name="email" required placeholder="{n['placeholder']}" aria-label="{n['placeholder']}">
+        <input type="email" name="email" autocomplete="email" required placeholder="{n['placeholder']}" aria-label="{n['placeholder']}">
         <button type="submit">{n['button']}</button>
       </form>
       <p class="note">{n.get('note','')}</p>
@@ -350,16 +476,17 @@ def build_home(site, posts):
     rest = [p for p in posts if p is not featured]
     rel = ""
 
+    # البطاقتان الأوليان تظهران دون تمرير، فلا تأجيل لتحميل صورتيهما
     cards = "\n".join(f"""
       <a href="post/{p['slug']}/" class="post-card fade-in">
-        <div class="thumb"><img src="{p['image']}" alt="{p['title']}" loading="lazy"{img_pos(p)}></div>
+        <div class="thumb"><img src="{p['image']}" alt="{p['title']}"{img_dims(p['image'])}{' loading="lazy"' if i >= 2 else ''}{img_pos(p)}></div>
         <div class="card-body">
           <h3>{p['title']}</h3>
           <div class="meta">
             {card_meta(p)}
           </div>
         </div>
-      </a>""" for p in rest)
+      </a>""" for i, p in enumerate(rest))
 
     pull = ""
     if featured.get("pull_quote"):
@@ -376,7 +503,7 @@ def build_home(site, posts):
 <main>
   <section class="hero">
     <div class="hero-bg">
-      <img src="{featured['image']}" alt=""{img_pos(featured)}>
+      <img src="{featured['image']}" alt=""{img_dims(featured['image'])} fetchpriority="high"{img_pos(featured)}>
       <div class="hero-fade"></div>
     </div>
     <div class="hero-ghost" aria-hidden="true">{featured['title'][:20]}</div>
@@ -414,8 +541,24 @@ def build_home(site, posts):
         site, rel=rel,
         title=f"{site['brand']} | {site['tagline']}",
         description=site["description"],
+        path="", og_image=og_image_for(featured, site), preload=featured["image"],
+        jsonld={
+            "@context": "https://schema.org", "@type": "WebSite",
+            "@id": f"{site_url(site)}/#website", "url": f"{site_url(site)}/",
+            "name": site["brand"], "description": site["description"], "inLanguage": "ar",
+            "author": person_ld(site), "publisher": {"@id": f"{site_url(site)}/#person"},
+        },
         main=main, body_class="has-hero",
     )
+
+
+def og_image_for(p, site):
+    """صورة المشاركة: نسخة -og.jpg إن وُجدت، وإلا الغلاف إن كان JPEG/PNG، وإلا صورة الكاتب."""
+    if p and p.get("og_image"):
+        return p["og_image"]
+    if p and p.get("image", "").lower().endswith((".jpg", ".jpeg", ".png")):
+        return p["image"]
+    return site.get("about", {}).get("og_image", "")
 
 
 # ————— الأرشيف —————
@@ -446,7 +589,7 @@ def build_archive(site, posts):
         groups.append(f"""
       <div class="year-group" data-year="{year}">
         <div class="year-head">
-          <span class="year">{year}</span>
+          <h2 class="year">{year}</h2>
           <div class="rule-wrap"><hr class="mistarah"></div>
         </div>
         <div class="rows">{rows}
@@ -510,6 +653,7 @@ def build_archive(site, posts):
         site, rel=rel,
         title=f"الأرشيف | {site['brand']}",
         description="كل ما كُتب، مرتّباً بحسب الزمن.",
+        path="archive/", og_image=og_image_for(None, site),
         main=main, extra_js=extra_js,
     )
 
@@ -523,7 +667,7 @@ def books_section(a):
     cards = "\n".join(f"""
       <div class="book-card fade-in">
         <a class="book-cover" href="{bk['link']}" target="_blank" rel="noopener">
-          <img src="../{bk['image']}" alt="غلاف {bk['title']}" loading="lazy">
+          <img src="../{bk['image']}" alt="غلاف {bk['title']}"{img_dims(bk['image'])}>
         </a>
         <div class="book-body">
           <h3><a href="{bk['link']}" target="_blank" rel="noopener">{bk['title']}</a></h3>
@@ -538,7 +682,7 @@ def books_section(a):
             <span>{bk['pages']}</span>
           </div>
           <p class="book-desc">{bk['description']}</p>
-          <a class="book-link" href="{bk['link']}" target="_blank" rel="noopener">اقتنِ الكتاب ←</a>
+          <a class="book-link" href="{bk['link']}" target="_blank" rel="noopener" aria-label="اقتنِ كتاب «{bk['title']}»">اقتنِ الكتاب ←</a>
         </div>
       </div>""" for bk in books)
     return f"""
@@ -561,7 +705,7 @@ def build_about(site):
   <div class="container">
     <div class="about-grid">
       <div class="about-image">
-        <img src="{rel}{a['image']}" alt="صورة الكاتب">
+        <img src="{rel}{a['image']}" alt="صورة الكاتب"{img_dims(a['image'])} fetchpriority="high">
         <div class="fade"></div>
       </div>
       <div class="about-content">
@@ -583,6 +727,12 @@ def build_about(site):
         site, rel=rel,
         title=f"عني | {site['brand']}",
         description=a["paragraphs"][0][:150],
+        path="about/", og_image=og_image_for(None, site), preload=a["image"],
+        jsonld={
+            "@context": "https://schema.org", "@type": "ProfilePage",
+            "url": f"{site_url(site)}/about/", "inLanguage": "ar",
+            "mainEntity": person_ld(site, full=True),
+        },
         main=main,
     )
 
@@ -594,12 +744,13 @@ def build_subscribe(site):
     n = site.get("newsletter", {})
     main = f"""
 <main class="page subscribe-page">
-{newsletter_section(site)}
+{newsletter_section(site, heading_tag="h1")}
 </main>"""
     return render_page(
         site, rel=rel,
         title=f"{n.get('label', 'النشرة البريدية')} | {site['brand']}",
         description=n.get("text", site.get("description", "")),
+        path="subscribe/", og_image=og_image_for(None, site),
         main=main,
     )
 
@@ -608,7 +759,7 @@ def build_subscribe(site):
 
 def build_post(site, p):
     rel = "../../"
-    body = p["body"].replace('src="assets/', f'src="{rel}assets/')
+    body = add_body_img_dims(p["body"]).replace('src="assets/', f'src="{rel}assets/')
     pull = ""
     if p.get("pull_quote"):
         pull = f"""
@@ -632,7 +783,7 @@ def build_post(site, p):
   </header>
 
   <figure class="post-figure">
-    <div class="cover"><img src="{rel}{p['image']}" alt="{p['title']}"{img_pos(p)}></div>
+    <div class="cover"><img src="{rel}{p['image']}" alt="{p['title']}"{img_dims(p['image'])} fetchpriority="high"{img_pos(p)}></div>
   </figure>
 {pull}
   <article class="post-body">
@@ -662,8 +813,30 @@ def build_post(site, p):
         title=f"{p['title']} | {site['brand']}",
         description=p["excerpt"],
         og_type="article",
+        path=f"post/{p['slug']}/", og_image=og_image_for(p, site), preload=p["image"],
+        jsonld=post_ld(site, p),
         main=main, extra_js=extra_js,
     )
+
+
+def post_ld(site, p):
+    url = site_url(site)
+    ld = {
+        "@context": "https://schema.org", "@type": "BlogPosting",
+        "headline": p["title"], "description": p.get("excerpt", ""),
+        "url": f"{url}/post/{p['slug']}/",
+        "mainEntityOfPage": f"{url}/post/{p['slug']}/",
+        "datePublished": p["date"], "inLanguage": "ar",
+        "articleSection": p.get("category", ""),
+        "author": person_ld(site), "publisher": person_ld(site),
+    }
+    img = og_image_for(p, site) or p.get("image")
+    if img:
+        ld["image"] = f"{url}/{img}"
+    words = len(_strip_html(p.get("body", "")).split())
+    if words:
+        ld["wordCount"] = words
+    return ld
 
 
 # ————— RSS —————
@@ -688,6 +861,73 @@ def build_feed(site, posts):
 {items}
 </channel></rss>
 """
+
+
+# ————— ملفات الزواحف والوكلاء —————
+# ملاحظة: لا شيء هنا يعتمد على وقت البناء، كي لا يُنشئ الـ Action تعديلاً كل عشر دقائق.
+
+def build_sitemap(site, posts):
+    url = site_url(site)
+    if not url:
+        return None
+    latest = max((p["date"][:10] for p in posts), default="")
+    pages = [("", latest), ("archive/", latest), ("about/", ""), ("subscribe/", "")]
+    pages += [(f"post/{p['slug']}/", p["date"][:10]) for p in posts]
+    rows = "\n".join(
+        f"  <url><loc>{url}/{path}</loc>" + (f"<lastmod>{mod}</lastmod>" if mod else "") + "</url>"
+        for path, mod in pages
+    )
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{rows}
+</urlset>
+"""
+
+
+def build_robots(site):
+    url = site_url(site)
+    lines = ["User-agent: *", "Allow: /", ""]
+    if url:
+        lines.append(f"Sitemap: {url}/sitemap.xml")
+    return "\n".join(lines) + "\n"
+
+
+def build_llms(site, posts):
+    url = site_url(site)
+    if not url:
+        return None
+    items = "\n".join(
+        f"- [{p['title']}]({url}/post/{p['slug']}/): {_strip_html(p.get('excerpt', ''))}" for p in posts
+    )
+    return f"""# {site['brand']}
+
+> {site['description']}
+
+مدونة شخصية بالعربية لماجد الأهدل.
+
+## الصفحات
+
+- [عني]({url}/about/): من هو الكاتب، وكتبه المنشورة
+- [الأرشيف]({url}/archive/): كل التدوينات مرتّبة زمنياً
+- [خلاصة RSS]({url}/feed.xml)
+
+## التدوينات
+
+{items}
+"""
+
+
+def build_security_txt(site):
+    url = site_url(site)
+    email = (site.get("newsletter") or {}).get("fallback_email", "")
+    if not (url and email):
+        return None
+    import datetime
+    expires = f"{datetime.date.today().year + 1}-12-31T23:59:59Z"   # يتغيّر مرة في السنة فقط
+    return (f"Contact: mailto:{email}\n"
+            f"Expires: {expires}\n"
+            "Preferred-Languages: ar, en\n"
+            f"Canonical: {url}/.well-known/security.txt\n")
 
 
 # ————— التنفيذ —————
@@ -729,6 +969,18 @@ def main():
     feed = build_feed(site, posts)
     if feed:
         (OUT / "feed.xml").write_text(latinize(feed), encoding="utf-8")
+
+    sitemap = build_sitemap(site, posts)
+    if sitemap:
+        (OUT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
+    (OUT / "robots.txt").write_text(build_robots(site), encoding="utf-8")
+    llms = build_llms(site, posts)
+    if llms:
+        (OUT / "llms.txt").write_text(latinize(llms), encoding="utf-8")
+    sec = build_security_txt(site)
+    if sec:
+        (OUT / ".well-known").mkdir()
+        (OUT / ".well-known" / "security.txt").write_text(sec, encoding="utf-8")
 
     # دومين GitHub Pages الخاص
     url = site.get("site_url", "")

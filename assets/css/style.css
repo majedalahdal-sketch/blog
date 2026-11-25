@@ -66,7 +66,7 @@ body {
 h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); line-height: 1.2; }
 
 a { color: inherit; text-decoration: none; }
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }
 button { font-family: var(--font); background: none; border: none; cursor: pointer; color: inherit; }
 
 *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -223,9 +223,9 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 @media (min-width: 768px) { .footer .inner { padding: 6rem 0; } }
 .footer-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; }
 @media (min-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } }
-.footer h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+.footer .footer-title { font-family: var(--font-heading); line-height: 1.2; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
 .footer .desc { color: var(--gray); font-size: 1rem; line-height: 1.8; }
-.footer h4 { font-family: var(--font-ui); font-size: .875rem; font-weight: 600; color: var(--gray); letter-spacing: .05em; margin-bottom: 1rem; }
+.footer .footer-sub { line-height: 1.2; font-family: var(--font-ui); font-size: .875rem; font-weight: 600; color: var(--gray); letter-spacing: .05em; margin-bottom: 1rem; }
 .footer nav { display: flex; flex-direction: column; gap: .75rem; }
 .footer nav a { font-family: var(--font-ui); color: rgba(253,252,248,.8); transition: color .3s; }
 .footer nav a:hover { color: var(--accent); }
@@ -254,7 +254,7 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 .year-group { position: relative; margin-bottom: 6rem; }
 .year-head { display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 2rem; }
 @media (min-width: 768px) { .year-head { gap: 3rem; } }
-.year-head .year { font-size: 3.75rem; font-weight: 700; color: color-mix(in srgb, var(--ink) 7%, transparent); line-height: 1; flex-shrink: 0; }
+.year-head .year { font-family: inherit; font-size: 3.75rem; font-weight: 700; color: color-mix(in srgb, var(--ink) 7%, transparent); line-height: 1; flex-shrink: 0; }
 @media (min-width: 768px) { .year-head .year { font-size: 6rem; } }
 .year-head .rule-wrap { flex: 1; padding-top: 1rem; }
 
@@ -355,7 +355,7 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 @media (min-width: 768px) { .newsletter { padding: 5rem 0 7rem; } }
 .newsletter .inner { max-width: 36rem; margin: 0 auto; text-align: center; }
 .newsletter .label { font-family: var(--font-ui); display: block; font-size: .875rem; font-weight: 600; color: var(--gray); letter-spacing: .05em; margin-bottom: 1rem; }
-.newsletter h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; color: var(--ink); margin-bottom: 1rem; }
+.newsletter h2, .newsletter h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; color: var(--ink); margin-bottom: 1rem; }
 .newsletter p { font-size: 1.05rem; color: color-mix(in srgb, var(--ink) 65%, transparent); margin-bottom: 2rem; }
 .newsletter form { display: flex; gap: .625rem; max-width: 28rem; margin: 0 auto; }
 .newsletter input {
@@ -460,4 +460,11 @@ button { font-family: var(--font); background: none; border: none; cursor: point
 .prose-arabic figcaption {
   font-family: var(--font-ui); font-size: .8rem; color: var(--gray);
   text-align: center; padding-top: .75rem; line-height: 1.7;
+}
+
+/* احترام إعداد «تقليل الحركة» في نظام الزائر */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .fade-in { opacity: 1 !important; transform: none !important; }
 }
