@@ -259,6 +259,11 @@ def _strip_html(html: str) -> str:
 
 # ————— أدوات مساعدة: الروابط المطلقة وأبعاد الصور —————
 
+def seo(site, key, default):
+    """عنوان أو وصف الصفحة لمحركات البحث، من site.json ← seo، وإلا القيمة الافتراضية."""
+    return (site.get("seo") or {}).get(key) or default
+
+
 def site_url(site):
     return (site.get("site_url") or "").rstrip("/")
 
@@ -539,8 +544,8 @@ def build_home(site, posts):
 
     return render_page(
         site, rel=rel,
-        title=f"{site['brand']} | {site['tagline']}",
-        description=site["description"],
+        title=seo(site, "home_title", f"{site['brand']} | {site['tagline']}"),
+        description=seo(site, "home_description", site["description"]),
         path="", og_image=og_image_for(featured, site), preload=featured["image"],
         jsonld={
             "@context": "https://schema.org", "@type": "WebSite",
@@ -651,8 +656,8 @@ def build_archive(site, posts):
 
     return render_page(
         site, rel=rel,
-        title=f"الأرشيف | {site['brand']}",
-        description="كل ما كُتب، مرتّباً بحسب الزمن.",
+        title=seo(site, "archive_title", f"الأرشيف | {site['brand']}"),
+        description=seo(site, "archive_description", "كل ما كُتب، مرتّباً بحسب الزمن."),
         path="archive/", og_image=og_image_for(None, site),
         main=main, extra_js=extra_js,
     )
@@ -725,7 +730,7 @@ def build_about(site):
 
     return render_page(
         site, rel=rel,
-        title=f"عني | {site['brand']}",
+        title=seo(site, "about_title", f"عني | {site['brand']}"),
         description=a["paragraphs"][0][:150],
         path="about/", og_image=og_image_for(None, site), preload=a["image"],
         jsonld={
@@ -748,8 +753,8 @@ def build_subscribe(site):
 </main>"""
     return render_page(
         site, rel=rel,
-        title=f"{n.get('label', 'النشرة البريدية')} | {site['brand']}",
-        description=n.get("text", site.get("description", "")),
+        title=seo(site, "subscribe_title", f"{n.get('label', 'النشرة البريدية')} | {site['brand']}"),
+        description=seo(site, "subscribe_description", n.get("text", site.get("description", ""))),
         path="subscribe/", og_image=og_image_for(None, site),
         main=main,
     )
