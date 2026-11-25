@@ -321,8 +321,8 @@ def img_dims(src: str) -> str:
 
 
 def add_body_img_dims(html: str) -> str:
-    """أبعاد لصور متن التدوينة، والصورة الأولى تُحمَّل فوراً بلا تأجيل."""
-    first = [True]
+    """أبعاد لصور متن التدوينة، وأول صورتين تُحمَّلان فوراً بلا تأجيل."""
+    first = [0]
 
     def fix(m):
         tag = m.group(0)
@@ -330,9 +330,9 @@ def add_body_img_dims(html: str) -> str:
             src = re.search(r'src="([^"]+)"', tag)
             if src:
                 tag = tag.replace("<img ", "<img" + img_dims(src.group(1)) + " ", 1)
-        if first[0]:
+        if first[0] < 2:                  # أول صورتين في المتن تظهران مبكراً
             tag = tag.replace(' loading="lazy"', "")
-            first[0] = False
+            first[0] += 1
         return tag
 
     return re.sub(r"<img\b[^>]*>", fix, html)
@@ -682,7 +682,7 @@ def books_section(a):
             <span>{bk['pages']}</span>
           </div>
           <p class="book-desc">{bk['description']}</p>
-          <a class="book-link" href="{bk['link']}" target="_blank" rel="noopener" aria-label="اقتنِ كتاب «{bk['title']}»">اقتنِ الكتاب ←</a>
+          <a class="book-link" href="{bk['link']}" target="_blank" rel="noopener">اقتنِ الكتاب ←<span class="sr-only"> «{bk['title']}»</span></a>
         </div>
       </div>""" for bk in books)
     return f"""
@@ -730,7 +730,7 @@ def build_about(site):
         path="about/", og_image=og_image_for(None, site), preload=a["image"],
         jsonld={
             "@context": "https://schema.org", "@type": "ProfilePage",
-            "url": f"{site_url(site)}/about/", "inLanguage": "ar",
+            "name": f"عني | {site['brand']}", "url": f"{site_url(site)}/about/", "inLanguage": "ar",
             "mainEntity": person_ld(site, full=True),
         },
         main=main,
@@ -774,7 +774,7 @@ def build_post(site, p):
       <div class="meta">
         <span class="chip">{p['category']}</span>
         {f'<span>{p["subcategory"]}</span>' if p.get('subcategory') else ''}
-        <span>{fmt_date(p['date'])}</span>
+        <time datetime="{p['date'][:10]}">{fmt_date(p['date'])}</time>
         {f'<span>{p["reading_time"]} دقائق قراءة</span>' if p.get('reading_time') else ''}
       </div>
       <h1>{p['title']}</h1>
